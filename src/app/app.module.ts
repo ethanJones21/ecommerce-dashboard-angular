@@ -3,13 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InicioComponent } from './pages/inicio/inicio.component';
-import { SharedModule } from './shared/components/shared.module';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
-  declarations: [AppComponent, InicioComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, RouterModule],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('access_token'),
+        // allowedDomains: ["example.com"],
+        // disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+
+.selected {
+  color: #026dd5;
+}
+
+.router-link-active {
+  color: #f79638;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.fadein {
+  animation-name: fadein;
+  animation-fill-mode: both;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+a.disabled {
+  color: #9a9cac;
+  pointer-events: none;
+  cursor: not-allowed;
+}

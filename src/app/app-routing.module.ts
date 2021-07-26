@@ -1,8 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InicioComponent } from './pages/inicio/inicio.component';
 
-const routes: Routes = [{ path: '', component: InicioComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'panel',
+    loadChildren: () =>
+      import('./pages/pages.module').then((m) => m.PagesModule),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

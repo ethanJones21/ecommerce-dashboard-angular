@@ -1,0 +1,154 @@
+<form [formGroup]="clientForm" (ngSubmit)="submitForm(clientForm)" novalidate>
+  <!-- Page title-->
+  <div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Formulario para crear un nuevo cliente</p>
+      <p class="font-size-sm font-weight-medium pl-md-4">
+        <a
+          class="text-nowrap"
+          href="javascript:window.history.back()"
+          rel="noopener"
+          ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+          atrás</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <!-- Nombre -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.nameClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.nameClient }}</label
+    >
+    <label *ngIf="!validCC.nameClient" for="text-input" class="form-label"
+      >Nombre</label
+    >
+    <input
+      formControlName="nameClient"
+      name="nameClient"
+      class="form-control"
+      type="text"
+      placeholder="Nombre del cliente"
+    />
+  </div>
+
+  <!-- Apellido -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.lastnameClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.lastnameClient }}</label
+    >
+    <label *ngIf="!validCC.lastnameClient" for="text-input" class="form-label"
+      >Apellido</label
+    >
+    <input
+      formControlName="lastnameClient"
+      name="lastnameClient"
+      class="form-control"
+      type="text"
+      placeholder="Apellido del cliente"
+    />
+  </div>
+
+  <!-- Email -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.emailClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.emailClient }}</label
+    >
+    <label *ngIf="!validCC.emailClient" for="text-input" class="form-label"
+      >Correo</label
+    >
+    <input
+      formControlName="emailClient"
+      name="emailClient"
+      class="form-control"
+      placeholder="Correo del cliente"
+      type="email"
+    />
+  </div>
+
+  <!-- Password -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.passClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.passClient }}</label
+    >
+    <label *ngIf="!validCC.passClient" for="text-input" class="form-label"
+      >Contraseña</label
+    >
+    <input
+      formControlName="passClient"
+      name="passClient"
+      class="form-control"
+      placeholder="Contraseña del cliente"
+      type="password"
+    />
+  </div>
+
+  <!-- Phone Input -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.phoneClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.phoneClient }}</label
+    >
+    <label *ngIf="!validCC.phoneClient" for="text-input" class="form-label"
+      >Telefono</label
+    >
+    <input
+      formControlName="phoneClient"
+      name="phoneClient"
+      class="form-control"
+      placeholder="Telefono del cliente"
+      type="tel"
+    />
+  </div>
+
+  <!-- Pais -->
+  <div class="mb-4 d-flex flex-column">
+    <label for="select-input" class="form-label">País </label>
+    <select
+      formControlName="countryClient"
+      name="countryClient"
+      class="form-select"
+    >
+      <option>Escoge un país...</option>
+      <option>Peru</option>
+      <option>Colombia</option>
+      <option>Argentina</option>
+    </select>
+  </div>
+
+  <!-- Imagen -->
+  <div class="mb-4 d-flex flex-column">
+    <label for="file-input" class="form-label">File</label>
+    <input class="form-control" type="file" id="file-input" />
+  </div>
+
+  <!-- Color input -->
+  <!-- <div class="mb-4">
+    <label for="color-input" class="form-label">Color</label>
+    <input
+      class="form-control form-control-color"
+      type="color"
+      id="color-input"
+      value="#35cfe3"
+    />
+  </div> -->
+
+  <button class="btn btn-primary" [disabled]="!clientForm.valid" type="submit">
+    Guardar
+  </button>
+</form>
