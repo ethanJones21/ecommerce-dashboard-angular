@@ -11,6 +11,7 @@ import { ClientComponent } from './clients/client/client.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     ReactiveFormsModule,
     SharedModule,
+    ComponentsModule,
   ],
   exports: [
     PagesComponent,

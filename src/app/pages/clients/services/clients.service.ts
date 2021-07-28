@@ -14,19 +14,14 @@ export class ClientsService {
 
   constructor(private http: HttpClient) {}
 
-  getClients(page: number, limit: number): Observable<any> {
+  getClients(term: any, page: number, limit: number): Observable<any> {
     return this.http
-      .get<any>(`${apiUrl}/clients/paginado?page=${page}&limit=${limit}`, {
-        headers: this.headers,
-      })
+      .get<any>(
+        `${apiUrl}/clients/paginado?term=${term}&page=${page}&limit=${limit}`,
+        {
+          headers: this.headers,
+        }
+      )
       .pipe(map(({ ok, clients }) => clients));
-  }
-
-  getPagesClients(): Observable<number> {
-    return this.http
-      .get<any>(`${apiUrl}/clients/paginado?page=1&limit=1`, {
-        headers: this.headers,
-      })
-      .pipe(map(({ ok, clients }) => clients.longitud));
   }
 }

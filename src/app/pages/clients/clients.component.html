@@ -22,29 +22,18 @@
     <h5 style="margin-bottom: 0px">Filtro de clientes</h5>
   </div>
   <div class="card-header">
-    <form class="form-inline pt-2">
-      <label class="sr-only" for="inline-form-input-name">Apellidos</label>
+    <div class="form-floating pt-2">
+      <label class="sr-only" for="inline-form-input-name">Apellido</label>
       <input
+        name="searchForNameClients"
         class="form-control mb-3 mr-sm-4"
         type="text"
         id="inline-form-input-name"
-        placeholder="John Doe"
+        placeholder="Buscar por nombre, apellido o email"
+        #termSearchClients
+        (keyup.enter)="search(termSearchClients.value)"
       />
-      <label class="sr-only" for="inline-form-input-username">Correo</label>
-      <div class="input-group mb-3 mr-sm-4">
-        <div class="input-group-prepend">
-          <div class="input-group-text">@</div>
-        </div>
-        <input
-          class="form-control"
-          type="text"
-          id="inline-form-input-username"
-          placeholder="Username"
-        />
-      </div>
-
-      <button class="btn btn-primary mb-3" type="submit">Buscar cliente</button>
-    </form>
+    </div>
   </div>
   <ng-container *ngIf="clients$ | async; let clients; else: loading">
     <div class="card-body fadein">
@@ -99,7 +88,7 @@
           <a
             [class.disabled]="notPrevPage"
             class="page-link"
-            (click)="getClients(previous)"
+            (click)="getClients(term, previous)"
             >Prev</a
           >
         </li>
@@ -109,16 +98,19 @@
 
         <ng-container *ngFor="let page of pages">
           <li class="page-item d-none d-sm-block">
-            <a #paginaCliente (click)="getClients(page)" class="page-link">{{
-              page
-            }}</a>
+            <a
+              #paginaCliente
+              (click)="getClients(term, page)"
+              class="page-link"
+              >{{ page }}</a
+            >
           </li>
         </ng-container>
         <li class="page-item">
           <a
             [class.disabled]="notNextPage"
             class="page-link"
-            (click)="getClients(next)"
+            (click)="getClients('', next)"
             >Next</a
           >
         </li>

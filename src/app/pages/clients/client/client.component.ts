@@ -49,7 +49,7 @@ export class ClientComponent implements OnInit {
       ],
       phoneClient: [''],
       passClient: ['', [Validators.required, Validators.minLength(5)]],
-      countryClient: ['', Validators.required],
+      countryClient: ['Peru', Validators.required],
     });
     this.initControls();
   }
@@ -66,11 +66,11 @@ export class ClientComponent implements OnInit {
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach((control) => {
             control.markAsTouched();
-            // this.reset();
+            this.reset();
           });
         } else {
           control.markAsTouched();
-          // this.reset();
+          this.reset();
         }
       });
     } else {

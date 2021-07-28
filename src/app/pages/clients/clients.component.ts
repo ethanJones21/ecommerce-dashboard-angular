@@ -18,11 +18,13 @@ import { delay, map } from 'rxjs/operators';
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
+  term = '';
+  pages: number[] = []; //longitud
+
   clients$!: Observable<any[]>;
   subs = new Subscription();
   pagesEl: ElementRef[] = [];
-  pages: number[] = []; //longitud
-  limit = 1;
+  limit = 10;
   previous = 1;
   next = 1;
   isLoading = true;
@@ -38,8 +40,7 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.fillPagesArr();
-    this.getClients(1);
+    this.getClients('', 1);
   }
 
   ngAfterViewInit(): void {
@@ -50,14 +51,18 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subs.unsubscribe();
   }
 
-  private selectedPage(page: number) {
+  search(termino: string): void {
+    return this.getClients(termino, 1);
+  }
+
+  private selectedPage(page: number): void {
     //empieza desde cero [0]
     if (this.pagesEl.length > 0) {
       this.renderer.addClass(this.pagesEl[page - 1].nativeElement, 'selected');
     }
   }
 
-  private removeAllSelectedPages() {
+  private removeAllSelectedPages(): void {
     if (this.pagesEl.length > 0) {
       this.pagesEl.forEach((val, i) => {
         this.renderer.removeClass(this.pagesEl[i].nativeElement, 'selected');
@@ -65,7 +70,7 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  private getPagesEl() {
+  private getPagesEl(): void {
     //una sola vez
     this.subs.add(
       this.paginaCliente.changes.subscribe((paginas) => {
@@ -73,17 +78,6 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
           (pagina: ElementRef, i: number) => (this.pagesEl[i] = pagina)
         );
         this.selectedPage(1);
-      })
-    );
-  }
-
-  private fillPagesArr() {
-    //una sola vez
-    this.subs.add(
-      this.clientsServ.getPagesClients().subscribe((longitud: number) => {
-        for (let i = 0; i < longitud; i++) {
-          this.pages[i] = i + 1; //comienza en 1
-        }
       })
     );
   }
@@ -106,12 +100,13 @@ export class ClientsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  getClients(page: number) {
-    this.clients$ = this.clientsServ.getClients(page, this.limit).pipe(
+  getClients(term: any, page: number) {
+    this.term = term;
+    this.clients$ = this.clientsServ.getClients(term, page, this.limit).pipe(
       // delay(3000),
-      map(({ clients, longitud, previous, next }) => {
+      map(({ clients, pages, longitud, previous, next }) => {
+        this.pages = pages;
         this.conditionalsControls(previous, next, longitud);
-
         this.removeAllSelectedPages();
         this.selectedPage(page);
         this.isLoading = false;
