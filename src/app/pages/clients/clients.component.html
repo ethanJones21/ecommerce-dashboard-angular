@@ -81,42 +81,10 @@
     </div>
   </ng-container>
 
-  <div class="card-footer pointer">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item">
-          <a
-            [class.disabled]="notPrevPage"
-            class="page-link"
-            (click)="getClients(term, previous)"
-            >Prev</a
-          >
-        </li>
-        <li class="page-item d-sm-none">
-          <span class="page-link page-link-static">2 / 5</span>
-        </li>
-
-        <ng-container *ngFor="let page of pages">
-          <li class="page-item d-none d-sm-block">
-            <a
-              #paginaCliente
-              (click)="getClients(term, page)"
-              class="page-link"
-              >{{ page }}</a
-            >
-          </li>
-        </ng-container>
-        <li class="page-item">
-          <a
-            [class.disabled]="notNextPage"
-            class="page-link"
-            (click)="getClients('', next)"
-            >Next</a
-          >
-        </li>
-      </ul>
-    </nav>
-  </div>
+  <Pagination
+    [pagination]="pagination"
+    (pageEmitter)="getClients('', $event)"
+  ></Pagination>
 </div>
 
 <ng-template #loading>
