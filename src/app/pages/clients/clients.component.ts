@@ -6,9 +6,10 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import Swal from 'sweetalert2';
 import { ClientsService } from './services/clients.service';
 
 @Component({
@@ -37,7 +38,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
   @ViewChildren('paginaCliente', { read: ElementRef })
   paginaCliente!: QueryList<ElementRef>;
 
-  constructor(private clientsServ: ClientsService) {}
+  constructor(private clientsServ: ClientsService, private router: Router) {}
 
   ngOnInit(): void {
     this.getClients('', 1);
@@ -62,5 +63,30 @@ export class ClientsComponent implements OnInit, OnDestroy {
       })
     );
     this.subs.add(this.clients$.subscribe());
+  }
+
+  goClientPage(id: string) {
+    this.router.navigate(['/panel/clients/', id]);
+  }
+
+  deactivateClient(id: string) {
+    Swal.fire({
+      title: '¿Esta seguro de desactivar este cliente?',
+      text: 'Si continua este cliente solo tendra una opcion de habilitarlo',
+      icon: 'question',
+      confirmButtonText: 'Desactivar',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.clientsServ.deactivateClient(id).subscribe(({ ok, msg }) => {
+          Swal.fire({
+            icon: 'success',
+            title: ok,
+            text: msg,
+          });
+          this.getClients('', 1);
+        });
+      }
+    });
   }
 }

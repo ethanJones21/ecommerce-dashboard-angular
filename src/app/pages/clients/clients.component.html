@@ -50,7 +50,7 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let client of clients; index as i">
-              <tr>
+              <tr [class.disabled]="!client.activo">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ client.nombre }}</td>
                 <td>{{ client.apellido }}</td>
@@ -67,14 +67,26 @@
                       Opciones
                     </button>
                     <div class="dropdown-menu">
-                      <a href="#" class="dropdown-item">Actualizar cliente</a>
-                      <a href="#" class="dropdown-item">Eliminar cliente</a>
+                      <a
+                        *ngIf="client.test"
+                        (click)="goClientPage(client.uid)"
+                        class="dropdown-item pointer"
+                        >Actualizar cliente</a
+                      >
+                      <a
+                        (click)="deactivateClient(client.uid)"
+                        class="dropdown-item pointer"
+                        >Desactivar cliente</a
+                      >
                       <!-- <div class="dropdown-divider"></div> -->
                     </div>
                   </div>
                 </td>
               </tr>
             </ng-container>
+            <tr class="text-center" *ngIf="clients.length == 0">
+              <td colspan="5">No hay resultados</td>
+            </tr>
           </tbody>
         </table>
       </div>

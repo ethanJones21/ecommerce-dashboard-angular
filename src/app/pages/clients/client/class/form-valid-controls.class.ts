@@ -14,10 +14,11 @@ export class formValidControlsClient {
     const email = this.form.get('emailClient');
     return email?.invalid && email?.touched && email?.dirty;
   }
-  get passClient() {
-    const pass = this.form.get('passClient');
-    return pass?.invalid && pass?.touched && pass?.dirty;
+  get genderClient() {
+    const gender = this.form.get('genderClient');
+    return gender?.invalid && gender?.touched && gender?.dirty;
   }
+
   get phoneClient() {
     const phone = this.form.get('phoneClient');
     return phone?.invalid && phone?.touched && phone?.dirty;

@@ -24,4 +24,30 @@ export class ClientsService {
       )
       .pipe(map(({ ok, clients }) => clients));
   }
+
+  getClient(id: string): Observable<any> {
+    return this.http
+      .get<any>(`${apiUrl}/clients/${id}`, {
+        headers: this.headers,
+      })
+      .pipe(map(({ ok, client }) => client));
+  }
+
+  createClient(data: {}): Observable<any> {
+    return this.http.post<any>(`${apiUrl}/clients/test`, data, {
+      headers: this.headers,
+    });
+  }
+
+  updateClient(id: string, data: {}) {
+    return this.http.put<any>(`${apiUrl}/clients/${id}`, data, {
+      headers: this.headers,
+    });
+  }
+
+  deactivateClient(id: string) {
+    return this.http.patch<any>(`${apiUrl}/clients/${id}`, {
+      headers: this.headers,
+    });
+  }
 }

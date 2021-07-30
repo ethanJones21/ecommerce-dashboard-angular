@@ -27,7 +27,8 @@
   }
 }
 
-a.disabled {
+a.disabled,
+tr.disabled {
   color: #9a9cac;
   pointer-events: none;
   cursor: not-allowed;

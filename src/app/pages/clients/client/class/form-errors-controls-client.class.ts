@@ -14,13 +14,18 @@ export class formErrorsControlsClient {
     const email = this.form.get('emailClient')?.errors || {};
     return this.setErrorCondition(email, 'correo');
   }
-  get passClient() {
-    const pass = this.form.get('passClient')?.errors || {};
-    return this.setErrorCondition(pass, 'contraseña');
-  }
+
   get phoneClient() {
     const phone = this.form.get('phoneClient')?.errors || {};
     return this.setErrorCondition(phone, 'telefono');
+  }
+  get genderClient() {
+    const gender = this.form.get('genderClient')?.errors || {};
+    return this.setErrorCondition(gender, 'telefono');
+  }
+  get countryClient() {
+    const country = this.form.get('countryClient')?.errors || {};
+    return this.setErrorCondition(country, 'telefono');
   }
 
   private setErrorCondition(obj: any, campo: string) {

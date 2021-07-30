@@ -14,12 +14,25 @@ export class formValueControlsClient {
     const email = this.form.get('emailClient');
     return email?.value;
   }
+  get genderClient() {
+    const gender = this.form.get('genderClient');
+    return gender?.value;
+  }
+  get countryClient() {
+    const country = this.form.get('countryClient');
+    return country?.value;
+  }
+
+  get phoneClient() {
+    const phone = this.form.get('phoneClient');
+    return phone?.value;
+  }
   get passClient() {
     const pass = this.form.get('passClient');
     return pass?.value;
   }
-  get phoneClient() {
-    const phone = this.form.get('phoneClient');
-    return phone?.value;
+  get perfilClient() {
+    const perfil = this.form.get('perfilClient');
+    return perfil?.value;
   }
 }
