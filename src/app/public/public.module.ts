@@ -1,21 +1,24 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PagesRoutingModule } from './pages-routing.module';
-import { PagesComponent } from './pages.component';
+import { PublicRoutingModule } from './public-routing.module';
+import { PublicComponent } from './public.component';
 import { HomeComponent } from './inicio/home.component';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/components/shared.module';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientComponent } from './clients/client/client.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ComponentsModule } from '../components/components.module';
+import { SharedModule } from '../shared/shared.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
-    PagesComponent,
+    NavbarComponent,
+    SidebarComponent,
+    PublicComponent,
     HomeComponent,
     ClientsComponent,
     ClientComponent,
@@ -24,14 +27,15 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule,
+    PublicRoutingModule,
     RouterModule,
     ReactiveFormsModule,
     SharedModule,
-    ComponentsModule,
   ],
   exports: [
-    PagesComponent,
+    NavbarComponent,
+    SidebarComponent,
+    PublicComponent,
     HomeComponent,
     ClientsComponent,
     ClientComponent,
@@ -40,4 +44,4 @@ import { ComponentsModule } from '../components/components.module';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class PagesModule {}
+export class PublicModule {}

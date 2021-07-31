@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'panel',
     loadChildren: () =>
-      import('./pages/pages.module').then((m) => m.PagesModule),
+      import('./public/public.module').then((m) => m.PublicModule),
   },
   {
     path: '**',
