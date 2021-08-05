@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptorService } from './core/interceptors/auth.interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,15 +14,22 @@ import { JwtModule } from '@auth0/angular-jwt';
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem('access_token'),
-        // allowedDomains: ["example.com"],
-        // disallowedRoutes: ["http://example.com/examplebadroute/"],
-      },
-    }),
+    // TODO: ESTO NO LO SE USAR
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: () => localStorage.getItem('TOKEN'),
+    //     // allowedDomains: ["example.com"],
+    //     // disallowedRoutes: ["http://example.com/examplebadroute/"],
+    //   },
+    // }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

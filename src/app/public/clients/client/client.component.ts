@@ -126,8 +126,8 @@ export class ClientComponent implements OnInit {
   // }
 
   submitForm(form: FormGroup) {
-    if (this.clientForm.invalid) {
-      return Object.values(this.clientForm.controls).forEach((control: any) => {
+    if (form.invalid) {
+      return Object.values(form.controls).forEach((control: any) => {
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach((control) => {
             control.markAsTouched();
