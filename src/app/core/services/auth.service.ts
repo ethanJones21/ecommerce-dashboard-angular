@@ -10,9 +10,11 @@ export class AuthService {
   readonly ISLOGGEDKEY = 'islogged';
   public urlUsuarioIntentaAcceder = '';
 
-  loginFirst = false;
+  loginFirst = 'false';
   tokenFirst = '';
   roleFirst = '';
+
+  prueba: any;
 
   public changeLoginStatusSubject = new Subject<boolean>();
   public changeLoginStatus$ = this.changeLoginStatusSubject.asObservable();
@@ -20,7 +22,7 @@ export class AuthService {
   constructor() {}
 
   login() {
-    this.loginFirst = true;
+    this.loginFirst = 'true';
     localStorage.setItem(this.ISLOGGEDKEY, 'true');
     this.changeLoginStatusSubject.next(true);
   }
@@ -33,7 +35,8 @@ export class AuthService {
   isLoggedIn(url: string): boolean {
     const isLogged = localStorage.getItem(this.ISLOGGEDKEY) || this.loginFirst;
     this.urlUsuarioIntentaAcceder = url;
-    return !isLogged ? false : true;
+    this.prueba = isLogged;
+    return isLogged && isLogged === 'true' ? true : false;
   }
 
   saveRoleAndToken(role: string, token: string) {

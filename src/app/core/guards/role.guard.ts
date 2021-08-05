@@ -5,14 +5,13 @@ import {
   CanActivateChild,
   RouterStateSnapshot,
 } from '@angular/router';
+import { ROLES } from '../models/roles.model';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate, CanActivateChild {
-  roles = ['ADMIN', 'USER'];
-
   constructor(private auth: AuthService) {}
 
   canActivate(
@@ -30,12 +29,10 @@ export class RoleGuard implements CanActivate, CanActivateChild {
   }
 
   checkRole(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return true;
-    // localStorage.setItem('prueba', route.data.role);
-    // localStorage.setItem('prueba2', this.roles[0]);
-    // return route.data.role === this.auth.getRole() &&
-    //   this.roles.includes(this.auth.getRole())
-    //   ? true
-    //   : false;
+    return (route.data.role === this.auth.getRole() ||
+      this.auth.getRole() === 'ADMIN') &&
+      ROLES.includes(this.auth.getRole())
+      ? true
+      : false;
   }
 }

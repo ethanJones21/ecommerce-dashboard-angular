@@ -13,11 +13,6 @@ const routes: Routes = [
       import('./public/public.module').then((m) => m.PublicModule),
     canLoad: [AuthGuard],
   },
-  {
-    path: '**',
-    redirectTo: '/login',
-    pathMatch: 'full',
-  },
 ];
 
 @NgModule({

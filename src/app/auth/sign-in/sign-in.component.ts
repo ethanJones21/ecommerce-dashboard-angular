@@ -74,6 +74,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.authServ.login();
     this.routeRedirect = this.authServ.urlUsuarioIntentaAcceder;
     this.authServ.urlUsuarioIntentaAcceder = '';
-    this.router.navigate([this.routeRedirect]);
+    // this.router.navigate([this.routeRedirect]);
+    this.router.navigate(['/panel/clients']);
   }
 }

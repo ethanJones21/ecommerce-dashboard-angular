@@ -11,6 +11,7 @@ import { RoleGuard } from '../core/guards/role.guard';
 const routes: Routes = [
   {
     path: '',
+    canActivateChild: [RoleGuard],
     component: PublicComponent,
     children: [
       {
@@ -38,7 +39,8 @@ const routes: Routes = [
         data: { role: 'ADMIN' },
         component: ProductComponent,
       },
-      { path: '', redirectTo: 'clients', component: ClientsComponent },
+      // TODO: AHI QUE CORREGIRLO PORQUE DEBE REDIRIGIR A CLIENTE
+      // { path: '', redirectTo: 'clients' },
     ],
   },
 ];

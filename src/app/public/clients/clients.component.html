@@ -52,8 +52,8 @@
             <ng-container *ngFor="let client of clients; index as i">
               <tr [class.disabled]="!client.activo">
                 <th scope="row">{{ i + 1 }}</th>
-                <td>{{ client.nombre }}</td>
-                <td>{{ client.apellido }}</td>
+                <td>{{ client.name }}</td>
+                <td>{{ client.lastname }}</td>
                 <td>{{ client.email }}</td>
                 <td>
                   <div class="btn-group dropdown">

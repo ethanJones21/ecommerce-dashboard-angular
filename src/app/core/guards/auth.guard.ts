@@ -11,6 +11,7 @@ import {
 } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,18 +22,18 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> | boolean {
     return this.checkUserLogin(state.url);
   }
 
   canActivateChild(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> | boolean {
     return this.canActivate(next, state);
   }
 
-  canLoad(route: Route, segments: UrlSegment[]): boolean {
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | boolean {
     const url = `/${route.path}`;
     return this.checkUserLogin(url);
   }

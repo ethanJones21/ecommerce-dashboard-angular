@@ -7,7 +7,8 @@ const routes: Routes = [
     path: 'login',
     component: SignInComponent,
   },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  // BUG: POR ESTA LINEA ME ESTRESE MUCHO :´c
+  // { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
