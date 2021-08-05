@@ -9,7 +9,6 @@ import {
   RouterStateSnapshot,
   UrlSegment,
 } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 
@@ -36,13 +35,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | boolean {
     const url = `/${route.path}`;
     return this.checkUserLogin(url);
-  }
-
-  isTokenExpired(): boolean {
-    const token = this.authServ.getToken();
-    const helper = new JwtHelperService();
-    const isExpired = helper.isTokenExpired(token);
-    return !isExpired;
   }
 
   checkUserLogin(url: string): boolean {

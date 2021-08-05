@@ -62,8 +62,8 @@ export class SignInComponent implements OnInit, OnDestroy {
         pass: form.controls['passLoginForm'].value,
       };
       this.subs.add(
-        this.signInServ.login(user).subscribe(({ role, profile, token }) => {
-          this.authServ.saveRoleAndToken(role, token);
+        this.signInServ.login(user).subscribe(({ profile, token }) => {
+          this.authServ.saveToken(token);
           this.login();
         })
       );
@@ -74,6 +74,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.authServ.login();
     this.routeRedirect = this.authServ.urlUsuarioIntentaAcceder;
     this.authServ.urlUsuarioIntentaAcceder = '';
+    // TODO: RESOLVER QUE NO PASA NINGUNA RUTA
     // this.router.navigate([this.routeRedirect]);
     this.router.navigate(['/panel/clients']);
   }

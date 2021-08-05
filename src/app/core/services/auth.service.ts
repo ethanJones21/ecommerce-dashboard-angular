@@ -5,16 +5,12 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  readonly ISROLE = 'role';
   readonly ISTOKEN = 'token';
   readonly ISLOGGEDKEY = 'islogged';
   public urlUsuarioIntentaAcceder = '';
 
   loginFirst = 'false';
   tokenFirst = '';
-  roleFirst = '';
-
-  prueba: any;
 
   public changeLoginStatusSubject = new Subject<boolean>();
   public changeLoginStatus$ = this.changeLoginStatusSubject.asObservable();
@@ -35,22 +31,15 @@ export class AuthService {
   isLoggedIn(url: string): boolean {
     const isLogged = localStorage.getItem(this.ISLOGGEDKEY) || this.loginFirst;
     this.urlUsuarioIntentaAcceder = url;
-    this.prueba = isLogged;
     return isLogged && isLogged === 'true' ? true : false;
   }
 
-  saveRoleAndToken(role: string, token: string) {
+  saveToken(token: string) {
     this.tokenFirst = token;
-    this.roleFirst = role;
     localStorage.setItem(this.ISTOKEN, token);
-    localStorage.setItem(this.ISROLE, role);
   }
 
   getToken(): string {
     return localStorage.getItem(this.ISTOKEN) || this.tokenFirst;
-  }
-
-  getRole(): string {
-    return localStorage.getItem(this.ISROLE) || this.roleFirst;
   }
 }

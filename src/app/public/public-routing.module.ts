@@ -7,11 +7,12 @@ import { ClientsComponent } from './clients/clients.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
 import { RoleGuard } from '../core/guards/role.guard';
+import { TokenExpiredGuard } from '../core/guards/token-expired.guard';
 
 const routes: Routes = [
   {
     path: '',
-    canActivateChild: [RoleGuard],
+    canActivateChild: [RoleGuard, TokenExpiredGuard],
     component: PublicComponent,
     children: [
       {

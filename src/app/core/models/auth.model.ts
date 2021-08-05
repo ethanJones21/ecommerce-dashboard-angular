@@ -4,7 +4,6 @@ export interface UserForm {
 }
 export interface UserApi {
   ok: boolean;
-  role: string;
   profile: string;
   token: string;
 }
