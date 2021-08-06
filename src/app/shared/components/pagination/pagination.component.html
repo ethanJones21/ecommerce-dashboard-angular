@@ -15,7 +15,7 @@
 
       <ng-container *ngFor="let page of pagination.pages">
         <li class="page-item d-none d-sm-block">
-          <a #paginaCliente class="page-link" (click)="changePage(page)">{{
+          <a #pageModel class="page-link" (click)="changePage(page)">{{
             page
           }}</a>
         </li>

@@ -12,9 +12,6 @@ export class SignInService {
   constructor(private http: HttpClient) {}
 
   login(user: UserForm): Observable<UserApi> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<UserApi>(`${apiUrl}/auth-user/login-user`, user, {
-      headers,
-    });
+    return this.http.post<UserApi>(`${apiUrl}/auth-user/login`, user);
   }
 }

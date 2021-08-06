@@ -72,10 +72,11 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   login() {
     this.authServ.login();
-    this.routeRedirect = this.authServ.urlUsuarioIntentaAcceder;
-    this.authServ.urlUsuarioIntentaAcceder = '';
+    this.router.navigate(['/panel']);
+    // this.routeRedirect = this.authServ.urlUsuarioIntentaAcceder;
+    // console.log(this.routeRedirect);
+    // this.authServ.urlUsuarioIntentaAcceder = '';
     // TODO: RESOLVER QUE NO PASA NINGUNA RUTA
     // this.router.navigate([this.routeRedirect]);
-    this.router.navigate(['/panel/clients']);
   }
 }

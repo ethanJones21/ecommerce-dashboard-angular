@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,8 +28,8 @@ export class ClientsComponent implements OnInit, OnDestroy {
   notPrevPage = false;
   notNextPage = false;
 
-  @ViewChildren('paginaCliente', { read: ElementRef })
-  paginaCliente!: QueryList<ElementRef>;
+  // @ViewChildren('paginaCliente', { read: ElementRef })
+  // paginaCliente!: QueryList<ElementRef>;
 
   constructor(private clientsServ: ClientsService, private router: Router) {}
 

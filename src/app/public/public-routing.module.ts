@@ -40,8 +40,7 @@ const routes: Routes = [
         data: { role: 'ADMIN' },
         component: ProductComponent,
       },
-      // TODO: AHI QUE CORREGIRLO PORQUE DEBE REDIRIGIR A CLIENTE
-      // { path: '', redirectTo: 'clients' },
+      { path: '**', redirectTo: 'clients', pathMatch: 'full' },
     ],
   },
 ];

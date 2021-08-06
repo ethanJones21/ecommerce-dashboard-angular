@@ -6,7 +6,7 @@ import { formErrorsControlsClient } from './class/form-errors-controls-client.cl
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from '../services/clients.service';
 import Swal from 'sweetalert2';
-import { ClientClass, ClientItf } from './models/client';
+import { ClientClass, ClientItf } from './models/client.model';
 
 @Component({
   selector: 'Client',

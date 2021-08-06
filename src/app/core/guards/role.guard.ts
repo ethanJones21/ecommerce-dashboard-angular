@@ -3,17 +3,17 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanActivateChild,
+  Router,
   RouterStateSnapshot,
 } from '@angular/router';
 import { ROLES } from '../models/roles.model';
-// import { AuthService } from '../services/auth.service';
 import { RoleService } from '../services/role.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate, CanActivateChild {
-  constructor(private roleServ: RoleService) {} //private auth: AuthService
+  constructor(private roleServ: RoleService, private router: Router) {} //private auth: AuthService
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -30,10 +30,15 @@ export class RoleGuard implements CanActivate, CanActivateChild {
   }
 
   checkRole(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return (route.data.role === this.roleServ.getRole() ||
-      this.roleServ.getRole() === 'ADMIN') &&
+    if (
+      (route.data.role === this.roleServ.getRole() ||
+        this.roleServ.getRole() === 'ADMIN') &&
       ROLES.includes(this.roleServ.getRole())
-      ? true
-      : false;
+    ) {
+      return true;
+    } else {
+      this.router.navigate(['/panel']);
+      return false;
+    }
   }
 }

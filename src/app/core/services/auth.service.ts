@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 export class AuthService {
   readonly ISTOKEN = 'token';
   readonly ISLOGGEDKEY = 'islogged';
-  public urlUsuarioIntentaAcceder = '';
+  // public urlUsuarioIntentaAcceder = '';
 
   loginFirst = 'false';
   tokenFirst = '';
@@ -28,9 +28,9 @@ export class AuthService {
     this.changeLoginStatusSubject.next(false);
   }
 
-  isLoggedIn(url: string): boolean {
+  // TODO: NO SE PORQUE NO FUNCIONA EL URL: STRING
+  isLoggedIn(): boolean {
     const isLogged = localStorage.getItem(this.ISLOGGEDKEY) || this.loginFirst;
-    this.urlUsuarioIntentaAcceder = url;
     return isLogged && isLogged === 'true' ? true : false;
   }
 

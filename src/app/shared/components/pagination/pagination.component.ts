@@ -27,8 +27,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
   notPrevPage = false;
   notNextPage = false;
 
-  @ViewChildren('paginaCliente', { read: ElementRef })
-  paginaCliente!: QueryList<ElementRef>;
+  @ViewChildren('pageModel', { read: ElementRef })
+  pageModel!: QueryList<ElementRef>;
 
   @Input('pagination') pagination!: paginationItf;
   @Output() pageEmitter = new EventEmitter<number>();
@@ -63,7 +63,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
   private getPagesEl(): void {
     //una sola vez
     this.subs.add(
-      this.paginaCliente.changes.subscribe((paginas) => {
+      this.pageModel.changes.subscribe((paginas) => {
         paginas.forEach(
           (pagina: ElementRef, i: number) => (this.pagesEl[i] = pagina)
         );
