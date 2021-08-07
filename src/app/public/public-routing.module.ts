@@ -32,12 +32,12 @@ const routes: Routes = [
       },
       {
         path: 'products',
-        data: { role: 'ADMIN' },
+        data: { role: 'USER' },
         component: ProductsComponent,
       },
       {
         path: 'products/:id',
-        data: { role: 'ADMIN' },
+        data: { role: 'USER' },
         component: ProductComponent,
       },
       { path: '**', redirectTo: 'clients', pathMatch: 'full' },

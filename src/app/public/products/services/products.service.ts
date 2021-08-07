@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ProductItf } from '../models/product.interface';
+import {
+  GETPRODUCTS,
+  CREATEUPDATEPRODUCT,
+  DESACTIVATEPRODUCT,
+  ONLYPRODUCTSINFO,
+} from '../models/product-api.interface';
 
 const apiUrl = environment.apiUrl;
 
@@ -14,29 +21,35 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(term: any, page: number, limit: number): Observable<any> {
+  getProducts(
+    term: any,
+    page: number,
+    limit: number
+  ): Observable<ONLYPRODUCTSINFO> {
     return this.http
-      .get<any>(
+      .get<GETPRODUCTS>(
         `${apiUrl}/products/paginado?term=${term}&page=${page}&limit=${limit}`
       )
       .pipe(map(({ ok, products }) => products));
   }
 
-  getProduct(id: string): Observable<any> {
+  getProduct(id: string): Observable<ProductItf> {
     return this.http
       .get<any>(`${apiUrl}/products/${id}`)
       .pipe(map(({ ok, product }) => product));
   }
 
-  createProduct(data: {}): Observable<any> {
-    return this.http.post<any>(`${apiUrl}/products`, data);
+  createProduct(data: ProductItf): Observable<CREATEUPDATEPRODUCT> {
+    return this.http.post<CREATEUPDATEPRODUCT>(`${apiUrl}/products`, data);
   }
 
-  updateProduct(id: string, data: {}) {
-    return this.http.put<any>(`${apiUrl}/products/${id}`, data);
+  updateProduct(id: string, data: ProductItf): Observable<CREATEUPDATEPRODUCT> {
+    return this.http.put<CREATEUPDATEPRODUCT>(`${apiUrl}/products/${id}`, data);
   }
 
-  deactivateProduct(id: string) {
-    return this.http.patch<any>(`${apiUrl}/products/${id}`, { id });
+  deactivateProduct(id: string): Observable<DESACTIVATEPRODUCT> {
+    return this.http.patch<DESACTIVATEPRODUCT>(`${apiUrl}/products/${id}`, {
+      id,
+    });
   }
 }

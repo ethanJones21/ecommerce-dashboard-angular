@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     RouterModule,
     ReactiveFormsModule,
     SharedModule,
+    NgxTinymceModule.forRoot({
+      baseURL: './assets/tinymce/',
+    }),
   ],
   exports: [
     NavbarComponent,

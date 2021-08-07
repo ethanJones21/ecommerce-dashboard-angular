@@ -12,4 +12,5 @@ export interface ProductItf {
   category: number;
   state: string;
   active: boolean;
+  id: string;
 }

@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { ProductsService } from './services/products.service';
+import { ProductItf } from './models/product.interface';
 @Component({
   selector: 'Products',
   templateUrl: './products.component.html',
@@ -11,7 +12,7 @@ import { ProductsService } from './services/products.service';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   term = '';
-  pagination = {
+  pagination: any = {
     pages: [1],
     longitud: 1,
     previous: 0,
@@ -19,7 +20,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     limit: 1,
   };
 
-  products$!: Observable<any[]>;
+  products$!: Observable<ProductItf[]>;
   subs = new Subscription();
   pagesEl: ElementRef[] = [];
 
@@ -70,7 +71,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.productsServ.deactivateProduct(id).subscribe(({ ok, msg }) => {
           Swal.fire({
             icon: 'success',
-            title: ok,
+            title: `ok: ${ok}`,
             text: msg,
           });
           this.getProducts('', 1);

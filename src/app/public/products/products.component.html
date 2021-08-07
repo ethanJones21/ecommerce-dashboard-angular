@@ -31,7 +31,7 @@
         class="form-control mb-3 mr-sm-4"
         type="text"
         id="inline-form-input-name"
-        placeholder="Buscar por nombre o codigo"
+        placeholder="Buscar por nombre o slug"
         #termSearchProducts
         (keyup.enter)="search(termSearchProducts.value)"
       />
@@ -44,19 +44,19 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Correo</th>
+              <th>Titulo</th>
+              <th>Slug</th>
+              <th>Precio</th>
               <th>Opciones</th>
             </tr>
           </thead>
           <tbody>
             <ng-container *ngFor="let product of products; index as i">
-              <tr [class.disabled]="!product.activo">
+              <tr [class.disabled]="!product.active">
                 <th scope="row">{{ i + 1 }}</th>
-                <td>{{ product.name }}</td>
-                <td>{{ product.lastname }}</td>
-                <td>{{ product.email }}</td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.slug }}</td>
+                <td>{{ product.price }}</td>
                 <td>
                   <div class="btn-group dropdown">
                     <button
@@ -70,12 +70,12 @@
                     </button>
                     <div class="dropdown-menu">
                       <a
-                        (click)="goProductPage(product.uid)"
+                        (click)="goProductPage(product.id)"
                         class="dropdown-item pointer"
                         >Actualizar producto</a
                       >
                       <a
-                        (click)="deactivateProduct(product.uid)"
+                        (click)="deactivateProduct(product.id)"
                         class="dropdown-item pointer"
                         >Desactivar producto</a
                       >
