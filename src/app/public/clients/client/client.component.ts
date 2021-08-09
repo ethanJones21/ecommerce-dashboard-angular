@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientsService } from '../clients.service';
 import Swal from 'sweetalert2';
 import { ClientClass } from '../models/client.class';
+import { ValidatorsService } from '../../../shared/services/validators.service';
+import { ClientService } from './client.service';
 
 @Component({
   selector: 'Client',
@@ -24,7 +26,9 @@ export class ClientComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private clientsServ: ClientsService
+    private clientsServ: ClientsService,
+    private clientServ: ClientService,
+    private validServ: ValidatorsService
   ) {
     this.initForm();
   }
@@ -63,8 +67,8 @@ export class ClientComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('^[a-zA-Z_ ]*$'),
+          Validators.minLength(2),
+          Validators.pattern(this.validServ.onlyString),
         ],
       ],
       lastnameClient: [
@@ -72,7 +76,7 @@ export class ClientComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.pattern('^[a-zA-Z_ ]*$'),
+          Validators.pattern(this.validServ.onlyString),
         ],
       ],
       emailClient: [
@@ -80,7 +84,7 @@ export class ClientComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(6),
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+          Validators.pattern(this.validServ.onlyEmail),
         ],
       ],
       passClient: ['123'],
@@ -107,11 +111,11 @@ export class ClientComponent implements OnInit {
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach((control) => {
             control.markAsTouched();
-            this.reset();
+            this.clientServ.reset(this.clientForm);
           });
         } else {
           control.markAsTouched();
-          this.reset();
+          this.clientServ.reset(this.clientForm);
         }
       });
     } else {
@@ -141,16 +145,5 @@ export class ClientComponent implements OnInit {
           });
       }
     }
-  }
-
-  reset() {
-    this.clientForm.reset({
-      nameClient: '',
-      lastnameClient: '',
-      emailClient: '',
-      passClient: '123',
-      countryClient: 'Peru',
-      genderClient: 'M',
-    });
   }
 }

@@ -1,14 +1,8 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  Renderer2,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { IMGTYPES } from '../../../core/models/img-types.model';
 import { ImgConditions } from '../../../core/helpers/img-conditions.class';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 
 @Component({
   selector: 'Product',
@@ -27,7 +21,7 @@ export class ProductComponent implements OnInit {
     height: 500,
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private validServ: ValidatorsService) {
     this.initForm();
   }
 
@@ -35,16 +29,32 @@ export class ProductComponent implements OnInit {
 
   initForm() {
     this.productForm = this.fb.group({
-      titleProduct: ['', Validators.required],
+      titleProduct: ['', Validators.required, Validators.min(4)],
       slugProduct: ['', Validators.required],
       galeryProduct: ['', Validators.required],
       coverProduct: ['', Validators.required],
-      priceProduct: [0, Validators.required],
+      priceProduct: [
+        0,
+        Validators.required,
+        Validators.pattern(this.validServ.onlyNumber),
+      ],
       descriptionProduct: ['', Validators.required],
       contentProduct: ['', Validators.required],
-      stockProduct: [0, Validators.required],
-      nsalesProduct: [0, Validators.required],
-      starsProduct: [0, Validators.required],
+      stockProduct: [
+        0,
+        Validators.required,
+        Validators.pattern(this.validServ.onlyNumber),
+      ],
+      nsalesProduct: [
+        0,
+        Validators.required,
+        Validators.pattern(this.validServ.onlyNumber),
+      ],
+      starsProduct: [
+        0,
+        Validators.required,
+        Validators.pattern(this.validServ.onlyNumber),
+      ],
       categoryProduct: ['', Validators.required],
     });
   }
