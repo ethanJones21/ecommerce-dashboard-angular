@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { formValueControlsClient } from './class/form-value-controls-client.class';
-import { formValidControlsClient } from './class/form-valid-controls.class';
-import { formErrorsControlsClient } from './class/form-errors-controls-client.class';
+import { formValueControlsClient } from '../helpers/form-value-controls-client.class';
+import { formValidControlsClient } from '../helpers/form-valid-controls.class';
+import { formErrorsControlsClient } from '../helpers/form-errors-controls-client.class';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientsService } from '../services/clients.service';
+import { ClientsService } from '../clients.service';
 import Swal from 'sweetalert2';
-import { ClientClass, ClientItf } from './models/client.model';
+import { ClientClass } from '../models/client.class';
 
 @Component({
   selector: 'Client',
@@ -40,16 +40,16 @@ export class ClientComponent implements OnInit {
         this.clientsServ
           .getClient(id)
           .subscribe(
-            ({ nombre, apellido, email, perfil, pais, telefono, genero }) => {
+            ({ name, lastname, email, profile, country, phone, gender }) => {
               this.id = id;
               this.clientForm.setValue({
-                nameClient: nombre,
-                lastnameClient: apellido,
+                nameClient: name,
+                lastnameClient: lastname,
                 emailClient: email,
                 passClient: '123',
-                countryClient: pais,
-                genderClient: genero,
-                phoneClient: telefono,
+                countryClient: country,
+                genderClient: gender,
+                phoneClient: phone,
               });
             }
           );
@@ -101,30 +101,6 @@ export class ClientComponent implements OnInit {
     this.router.navigate(['/panel/clients']);
   }
 
-  // onFileChange(event: any) {
-  //   if (event.target.files.length > 0) {
-  //     const file = event.target.files[0];
-  //     this.clientForm.patchValue({
-  //       perfilClient: file,
-  //     });
-  //   }
-  // }
-
-  // onFileChange(event: any) {
-  //   let reader = new FileReader();
-
-  //   if (event.target.files && event.target.files.length) {
-  //     const [file] = event.target.files;
-  //     reader.readAsDataURL(file);
-
-  //     reader.onload = () => {
-  //       this.clientForm.patchValue({
-  //         perfilClient: reader.result,
-  //       });
-  //     };
-  //   }
-  // }
-
   submitForm(form: FormGroup) {
     if (form.invalid) {
       return Object.values(form.controls).forEach((control: any) => {
@@ -139,7 +115,7 @@ export class ClientComponent implements OnInit {
         }
       });
     } else {
-      const client = this.formatClient(form);
+      const client = new ClientClass(form);
       if (this.id === 'new') {
         this.clientsServ
           .createClient(client)
@@ -147,7 +123,7 @@ export class ClientComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: ok,
-              text: `${msg} : ${client.nombre}`,
+              text: `${msg} : ${client.name}`,
             });
             this.goClientsPage();
           });
@@ -159,31 +135,12 @@ export class ClientComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: ok,
-              text: `${msg} : ${client.nombre}`,
+              text: `${msg} : ${client.name}`,
             });
             this.goClientsPage();
           });
       }
     }
-  }
-
-  formatClient(form: FormGroup) {
-    const {
-      nameClient,
-      lastnameClient,
-      emailClient,
-      countryClient,
-      genderClient,
-      ...other
-    } = form.value;
-    return new ClientClass(
-      nameClient,
-      lastnameClient,
-      emailClient,
-      countryClient,
-      genderClient,
-      other
-    );
   }
 
   reset() {

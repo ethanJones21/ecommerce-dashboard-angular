@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { ClientsService } from './services/clients.service';
+import { ClientsService } from './clients.service';
 
 @Component({
   selector: 'Clients',

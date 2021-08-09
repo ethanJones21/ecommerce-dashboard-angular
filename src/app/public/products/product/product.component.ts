@@ -8,6 +8,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { IMGTYPES } from '../../../core/models/img-types.model';
+import { ImgConditions } from '../../../core/helpers/img-conditions.class';
 
 @Component({
   selector: 'Product',
@@ -26,7 +27,7 @@ export class ProductComponent implements OnInit {
     height: 500,
   };
 
-  constructor(private fb: FormBuilder, private render: Renderer2) {
+  constructor(private fb: FormBuilder) {
     this.initForm();
   }
 
@@ -74,7 +75,7 @@ export class ProductComponent implements OnInit {
           });
         } else {
           control.markAsTouched();
-          this.reset;
+          this.reset();
         }
       });
     } else {
@@ -84,38 +85,21 @@ export class ProductComponent implements OnInit {
 
   onFileChange(event: any) {
     let reader = new FileReader();
-    if (event.target.files.length > 0) {
-      const file = <File>event.target.files[0];
-      if (file.size <= 4000000) {
-        if (this.imgTypes.includes(file.type)) {
-          reader.onload = (e) => (this.imgSelect = reader.result);
-          reader.readAsDataURL(file);
-          this.file = file;
-          this.labelCoverProduct.nativeElement.innerText = file.name;
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'No es una imagen',
-          });
-          this.resetImage();
-        }
+    const imgC = new ImgConditions();
+    if (imgC.existImg(event)) {
+      let file = <File>event.target.files[0];
+      if (imgC.typesImg(file, this.imgTypes) || imgC.sizeImg(file, 4000000)) {
+        reader.onload = (e) => (this.imgSelect = reader.result);
+        reader.readAsDataURL(file);
+        this.file = file;
+        this.labelCoverProduct.nativeElement.innerText = file.name;
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'La imagen no puede superar los 4mb',
-        });
-        this.resetImage();
+        this.resetImg();
       }
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'No hay imagen',
-      });
-      this.resetImage();
     }
   }
 
-  resetImage() {
+  resetImg() {
     this.labelCoverProduct.nativeElement.innerText = '';
     this.imgSelect = 'assets/img/01.jpg';
   }

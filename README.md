@@ -32,3 +32,7 @@ en modelos variable global de ruta de inicio al logearse
 sweetalert de no ingreso de ruta
 seguir viendo las clases
 interceptor de errores
+
+## esto es para los headers normales
+
+headers = new HttpHeaders().set('Content-Type', 'application/json');

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { ProductsService } from './services/products.service';
+import { ProductsService } from './products.service';
 import { ProductItf } from './models/product.interface';
 @Component({
   selector: 'Products',

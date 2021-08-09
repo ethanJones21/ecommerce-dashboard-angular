@@ -7,6 +7,7 @@ const routes: Routes = [
     path: 'login',
     component: SignInComponent,
   },
+  { path: '', redirectTo: 'login' },
   // BUG: POR ESTA LINEA ME ESTRESE MUCHO :´c
   // { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];

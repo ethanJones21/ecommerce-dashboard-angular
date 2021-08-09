@@ -1,21 +1,26 @@
 import { ProductItf } from './product.interface';
 
-export interface GETPRODUCTS {
+export interface getProductItf {
   ok: boolean;
-  products: ONLYPRODUCTSINFO;
+  product: ProductItf;
 }
-export interface CREATEUPDATEPRODUCT {
+
+export interface getProductsItf {
+  ok: boolean;
+  products: onlyProductsInfoItf;
+}
+export interface createUpdateProductsItf {
   ok: boolean;
   msg: string;
   product: ProductItf;
 }
 
-export interface DESACTIVATEPRODUCT {
+export interface desactivateProductItf {
   ok: boolean;
   msg: string;
 }
 
-export interface ONLYPRODUCTSINFO {
+export interface onlyProductsInfoItf {
   products: ProductItf[];
   next: number | {};
   previous: number | {};
