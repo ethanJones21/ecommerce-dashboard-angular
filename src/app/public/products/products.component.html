@@ -54,7 +54,7 @@
             <ng-container *ngFor="let product of products; index as i">
               <tr [class.disabled]="!product.active">
                 <th scope="row">{{ i + 1 }}</th>
-                <td>{{ product.title }}</td>
+                <td>{{ product.name }}</td>
                 <td>{{ product.slug }}</td>
                 <td>{{ product.price }}</td>
                 <td>
@@ -70,7 +70,7 @@
                     </button>
                     <div class="dropdown-menu">
                       <a
-                        (click)="goProductPage(product.id)"
+                        [routerLink]="['/panel/products/', product.id]"
                         class="dropdown-item pointer"
                         >Actualizar producto</a
                       >

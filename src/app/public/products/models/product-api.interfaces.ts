@@ -22,8 +22,8 @@ export interface desactivateProductItf {
 
 export interface onlyProductsInfoItf {
   products: ProductItf[];
-  next: number | {};
-  previous: number | {};
-  pages: any[];
+  pages: number[];
   longitud: number;
+  next: any; //number | {}
+  previous: any; //number | {}
 }

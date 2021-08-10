@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { ClientsService } from './clients.service';
+import { ClientItf } from './models/client.interface';
 
 @Component({
   selector: 'Clients',
@@ -20,16 +21,13 @@ export class ClientsComponent implements OnInit, OnDestroy {
     limit: 1,
   };
 
-  clients$!: Observable<any[]>;
+  clients$!: Observable<ClientItf[]>;
   subs = new Subscription();
   pagesEl: ElementRef[] = [];
 
   limit = 10;
   notPrevPage = false;
   notNextPage = false;
-
-  // @ViewChildren('paginaCliente', { read: ElementRef })
-  // paginaCliente!: QueryList<ElementRef>;
 
   constructor(private clientsServ: ClientsService, private router: Router) {}
 
@@ -50,16 +48,11 @@ export class ClientsComponent implements OnInit, OnDestroy {
     this.clients$ = this.clientsServ.getClients(term, page, this.limit).pipe(
       // delay(3000),
       map(({ clients, ...data }) => {
-        this.pagination = { ...data };
-        this.pagination.limit = this.limit;
+        this.pagination = { ...data, limit: this.limit };
         return clients;
       })
     );
     this.subs.add(this.clients$.subscribe());
-  }
-
-  goClientPage(id: string) {
-    this.router.navigate(['/panel/clients/', id]);
   }
 
   deactivateClient(id: string) {

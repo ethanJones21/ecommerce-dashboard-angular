@@ -50,7 +50,7 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let client of clients; index as i">
-              <tr [class.disabled]="!client.activo">
+              <tr [class.disabled]="!client.active">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ client.name }}</td>
                 <td>{{ client.lastname }}</td>
@@ -67,9 +67,10 @@
                       Opciones
                     </button>
                     <div class="dropdown-menu">
+                      <!-- (click)="goClientPage(client.uid)" -->
                       <a
                         *ngIf="client.test"
-                        (click)="goClientPage(client.uid)"
+                        [routerLink]="['/panel/clients/', client.uid]"
                         class="dropdown-item pointer"
                         >Actualizar cliente</a
                       >

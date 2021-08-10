@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +7,20 @@ import { Injectable } from '@angular/core';
 export class ClientService {
   constructor() {}
 
-  reset(form: any) {
+  setNewClient(form: FormGroup, client: any) {
+    const { name, lastname, email, profile, country, phone, gender } = client;
+    form.setValue({
+      nameClient: name,
+      lastnameClient: lastname,
+      emailClient: email,
+      passClient: '123',
+      countryClient: country,
+      genderClient: gender,
+      phoneClient: phone,
+    });
+  }
+
+  reset(form: FormGroup) {
     form.reset({
       nameClient: '',
       lastnameClient: '',

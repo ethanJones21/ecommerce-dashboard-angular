@@ -12,7 +12,7 @@ import { ProductItf } from './models/product.interface';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   term = '';
-  pagination: any = {
+  pagination = {
     pages: [1],
     longitud: 1,
     previous: 0,
@@ -47,16 +47,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.products$ = this.productsServ.getProducts(term, page, this.limit).pipe(
       // delay(3000), //prueba de que carge skeleton-load
       map(({ products, ...data }) => {
-        this.pagination = { ...data };
-        this.pagination.limit = this.limit;
+        this.pagination = { ...data, limit: this.limit };
         return products;
       })
     );
     this.subs.add(this.products$.subscribe());
-  }
-
-  goProductPage(id: string) {
-    this.router.navigate(['/panel/products/', id]);
   }
 
   deactivateProduct(id: string) {

@@ -1,161 +1,160 @@
-<div class="container-fluid" style="background-color: #000">
-  <form [formGroup]="clientForm" (ngSubmit)="submitForm(clientForm)" novalidate>
-    <!-- Page title-->
-    <div class="border-bottom pt-5 mt-2 mb-5">
-      <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
-      <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-        <p class="text-muted">Formulario para crear un nuevo cliente</p>
-        <p class="font-size-sm font-weight-medium pl-md-4">
-          <a
-            class="text-nowrap"
-            href="javascript:window.history.back()"
-            rel="noopener"
-            ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
-            atrás</a
-          >
-        </p>
-      </div>
+<form [formGroup]="clientForm" (ngSubmit)="submitForm(clientForm)" novalidate>
+  <!-- Page title-->
+  <div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Formulario para crear un nuevo cliente</p>
+      <p class="font-size-sm font-weight-medium pl-md-4">
+        <a
+          class="text-nowrap"
+          href="javascript:window.history.back()"
+          rel="noopener"
+          ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+          atrás</a
+        >
+      </p>
     </div>
+  </div>
 
-    <!-- Nombre -->
-    <div class="mb-4">
-      <label
-        *ngIf="validCC.nameClient"
-        for="text-input"
-        class="form-label text-danger"
-        >{{ errorsCC.nameClient }}</label
-      >
-      <label *ngIf="!validCC.nameClient" for="text-input" class="form-label"
-        >Nombre</label
-      >
+  <!-- Nombre -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.nameClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.nameClient }}</label
+    >
+    <label *ngIf="!validCC.nameClient" for="text-input" class="form-label"
+      >Nombre</label
+    >
+    <input
+      formControlName="nameClient"
+      name="nameClient"
+      class="form-control"
+      type="text"
+      placeholder="Nombre del cliente"
+    />
+  </div>
+
+  <!-- Apellido -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.lastnameClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.lastnameClient }}</label
+    >
+    <label *ngIf="!validCC.lastnameClient" for="text-input" class="form-label"
+      >Apellido</label
+    >
+    <input
+      formControlName="lastnameClient"
+      name="lastnameClient"
+      class="form-control"
+      type="text"
+      placeholder="Apellido del cliente"
+    />
+  </div>
+
+  <!-- Email -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.emailClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.emailClient }}</label
+    >
+    <label *ngIf="!validCC.emailClient" for="text-input" class="form-label"
+      >Correo</label
+    >
+    <input
+      formControlName="emailClient"
+      name="emailClient"
+      class="form-control"
+      placeholder="Correo del cliente"
+      type="email"
+    />
+  </div>
+
+  <!-- Contraseña -->
+  <!-- Password visibility toggle -->
+  <div class="mb-4">
+    <label class="form-label" for="pass-visibility">Contraseña</label>
+    <input
+      disabled
+      formGroupName="passClient"
+      name="passClient"
+      class="form-control"
+      type="password"
+    />
+  </div>
+  <!-- value="hidden@password" -->
+
+  <!-- Pais -->
+  <div class="mb-4 d-flex flex-column">
+    <label for="select-input" class="form-label">País </label>
+    <select
+      formControlName="countryClient"
+      name="countryClient"
+      class="form-select"
+    >
+      <option>Escoge un país...</option>
+      <option>Peru</option>
+      <option>Colombia</option>
+      <option>Argentina</option>
+    </select>
+  </div>
+
+  <!-- Gender -->
+
+  <div class="mb-4">
+    <div class="form-check form-check-inline">
       <input
-        formControlName="nameClient"
-        name="nameClient"
-        class="form-control"
-        type="text"
-        placeholder="Nombre del cliente"
+        formControlName="genderClient"
+        class="form-check-input"
+        type="radio"
+        id="ex-radio-4"
+        name="genderClient"
+        value="M"
       />
+      <!-- checked -->
+      <label class="form-check-label" for="ex-radio-4">M</label>
     </div>
-
-    <!-- Apellido -->
-    <div class="mb-4">
-      <label
-        *ngIf="validCC.lastnameClient"
-        for="text-input"
-        class="form-label text-danger"
-        >{{ errorsCC.lastnameClient }}</label
-      >
-      <label *ngIf="!validCC.lastnameClient" for="text-input" class="form-label"
-        >Apellido</label
-      >
+    <div class="form-check form-check-inline">
       <input
-        formControlName="lastnameClient"
-        name="lastnameClient"
-        class="form-control"
-        type="text"
-        placeholder="Apellido del cliente"
+        formControlName="genderClient"
+        class="form-check-input"
+        type="radio"
+        id="ex-radio-5"
+        name="genderClient"
+        value="F"
       />
+      <label class="form-check-label" for="ex-radio-5">F</label>
     </div>
+  </div>
 
-    <!-- Email -->
-    <div class="mb-4">
-      <label
-        *ngIf="validCC.emailClient"
-        for="text-input"
-        class="form-label text-danger"
-        >{{ errorsCC.emailClient }}</label
-      >
-      <label *ngIf="!validCC.emailClient" for="text-input" class="form-label"
-        >Correo</label
-      >
-      <input
-        formControlName="emailClient"
-        name="emailClient"
-        class="form-control"
-        placeholder="Correo del cliente"
-        type="email"
-      />
-    </div>
+  <!-- Phone Input -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.phoneClient"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.phoneClient }}</label
+    >
+    <label *ngIf="!validCC.phoneClient" for="text-input" class="form-label"
+      >Telefono</label
+    >
+    <input
+      formControlName="phoneClient"
+      name="phoneClient"
+      class="form-control"
+      placeholder="Telefono del cliente"
+      type="tel"
+    />
+  </div>
 
-    <!-- Contraseña -->
-    <!-- Password visibility toggle -->
-    <div class="mb-4">
-      <label class="form-label" for="pass-visibility">Contraseña</label>
-      <input
-        disabled
-        formGroupName="passClient"
-        name="passClient"
-        class="form-control"
-        type="password"
-      />
-    </div>
-    <!-- value="hidden@password" -->
-
-    <!-- Pais -->
-    <div class="mb-4 d-flex flex-column">
-      <label for="select-input" class="form-label">País </label>
-      <select
-        formControlName="countryClient"
-        name="countryClient"
-        class="form-select"
-      >
-        <option>Escoge un país...</option>
-        <option>Peru</option>
-        <option>Colombia</option>
-        <option>Argentina</option>
-      </select>
-    </div>
-
-    <!-- Gender -->
-
-    <div class="mb-4">
-      <div class="form-check form-check-inline">
-        <input
-          formControlName="genderClient"
-          class="form-check-input"
-          type="radio"
-          id="ex-radio-4"
-          name="genderClient"
-          value="M"
-        />
-        <!-- checked -->
-        <label class="form-check-label" for="ex-radio-4">M</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input
-          formControlName="genderClient"
-          class="form-check-input"
-          type="radio"
-          id="ex-radio-5"
-          name="genderClient"
-          value="F"
-        />
-        <label class="form-check-label" for="ex-radio-5">F</label>
-      </div>
-    </div>
-
-    <!-- Phone Input -->
-    <div class="mb-4">
-      <label
-        *ngIf="validCC.phoneClient"
-        for="text-input"
-        class="form-label text-danger"
-        >{{ errorsCC.phoneClient }}</label
-      >
-      <label *ngIf="!validCC.phoneClient" for="text-input" class="form-label"
-        >Telefono</label
-      >
-      <input
-        formControlName="phoneClient"
-        name="phoneClient"
-        class="form-control"
-        placeholder="Telefono del cliente"
-        type="tel"
-      />
-    </div>
-
-    <!-- Color input -->
-    <!-- <div class="mb-4">
+  <!-- Color input -->
+  <!-- <div class="mb-4">
       <label for="color-input" class="form-label">Color</label>
       <input
         class="form-control form-control-color"
@@ -165,12 +164,7 @@
       />
     </div> -->
 
-    <button
-      class="btn btn-primary"
-      [disabled]="!clientForm.valid"
-      type="submit"
-    >
-      Guardar
-    </button>
-  </form>
-</div>
+  <button class="btn btn-primary" [disabled]="!clientForm.valid" type="submit">
+    Guardar
+  </button>
+</form>

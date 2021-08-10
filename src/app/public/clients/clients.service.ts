@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ClientItf } from './models/client.interface';
+import { onlyClientsInfoItf } from './models/client-api.interfaces';
 import {
   getClientsItf,
   createUpdateClientsItf,
@@ -23,9 +24,9 @@ export class ClientsService {
     term: any,
     page: number,
     limit: number
-  ): Observable<getClientsItf> {
+  ): Observable<onlyClientsInfoItf> {
     return this.http
-      .get<any>(
+      .get<getClientsItf>(
         `${apiUrl}/clients/paginado?term=${term}&page=${page}&limit=${limit}`
       )
       .pipe(map(({ ok, clients }) => clients));

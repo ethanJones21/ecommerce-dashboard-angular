@@ -1,16 +1,14 @@
 export interface ProductItf {
-  title: string;
+  id: string;
+  name: string;
   slug: string;
-  galery: any[];
+  // galery: any[];
   cover: string;
   price: number;
   description: string;
   content: string;
   stock: number;
-  nsales: number;
-  stars: number;
   category: number;
-  state: string;
-  active: boolean;
-  id: string;
+  state?: string;
+  active?: boolean;
 }

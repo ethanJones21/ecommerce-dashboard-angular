@@ -25,10 +25,15 @@
         <div class="col-lg-8">
           <div class="row">
             <div class="col-lg-12 form-group">
-              <label for="">Titulo de producto</label>
+              <label
+                *ngIf="!validCC.nameProduct"
+                for="text-input"
+                class="form-label"
+                >Nombre del producto</label
+              >
               <input
-                formControlName="titleProduct"
-                name="titleProduct"
+                formControlName="nameProduct"
+                name="nameProduct"
                 type="text"
                 class="form-control"
                 placeholder="Titulo de producto"
@@ -36,7 +41,12 @@
               />
             </div>
             <div class="col-lg-4 form-group">
-              <label for="">Stock</label>
+              <label
+                *ngIf="!validCC.stockProduct"
+                for="text-input"
+                class="form-label"
+                >Stock</label
+              >
               <input
                 formControlName="stockProduct"
                 name="stockProduct"
@@ -47,7 +57,12 @@
               />
             </div>
             <div class="col-lg-4 form-group">
-              <label for="">Precio</label>
+              <label
+                *ngIf="!validCC.priceProduct"
+                for="text-input"
+                class="form-label"
+                >Price</label
+              >
               <input
                 formControlName="priceProduct"
                 name="priceProduct"
@@ -58,7 +73,12 @@
               />
             </div>
             <div class="col-lg-4 form-group">
-              <label for="">Categoría</label>
+              <label
+                *ngIf="!validCC.categoryProduct"
+                for="text-input"
+                class="form-label"
+                >Categoria</label
+              >
               <select
                 formControlName="categoryProduct"
                 name="categoryProduct"
@@ -73,7 +93,12 @@
             </div>
 
             <div class="col-lg-12 form-group">
-              <label for="">Descripción corta</label>
+              <label
+                *ngIf="!validCC.descriptionProduct"
+                for="text-input"
+                class="form-label"
+                >Descripcion</label
+              >
               <textarea
                 formControlName="descriptionProduct"
                 name="descriptionProduct"
@@ -96,11 +121,14 @@
         <div class="col-lg-4">
           <div class="row">
             <div class="col-lg-12 form-group">
-              <label for="">Portada</label>
+              <label
+                *ngIf="!validCC.coverProduct"
+                for="text-input"
+                class="form-label"
+                >Portada</label
+              >
               <div class="custom-file">
                 <input
-                  formControlName="coverProduct"
-                  name="coverProduct"
                   (change)="onFileChange($event)"
                   class="custom-file-input"
                   type="file"
@@ -127,8 +155,7 @@
       </div>
     </div>
     <div class="card-footer">
-      <button class="btn btn-primary mr-3">Crear producto</button>
-      <button class="btn btn-warning">Regresar</button>
+      <button class="btn btn-primary">Crear producto</button>
     </div>
   </div>
 </form>

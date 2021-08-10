@@ -21,8 +21,8 @@ export interface desactivateClientItf {
 
 export interface onlyClientsInfoItf {
   clients: ClientItf[];
-  next: number | {};
-  previous: number | {};
-  pages: any[];
+  pages: number[];
   longitud: number;
+  next: any; //number | {}
+  previous: any; //number | {}
 }

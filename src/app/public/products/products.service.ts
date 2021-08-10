@@ -38,14 +38,11 @@ export class ProductsService {
       .pipe(map(({ ok, product }) => product));
   }
 
-  createProduct(data: ProductItf): Observable<createUpdateProductsItf> {
+  createProduct(data: {}): Observable<createUpdateProductsItf> {
     return this.http.post<createUpdateProductsItf>(`${apiUrl}/products`, data);
   }
 
-  updateProduct(
-    id: string,
-    data: ProductItf
-  ): Observable<createUpdateProductsItf> {
+  updateProduct(id: string, data: {}): Observable<createUpdateProductsItf> {
     return this.http.put<createUpdateProductsItf>(
       `${apiUrl}/products/${id}`,
       data
