@@ -1,6 +1,6 @@
 export interface UserForm {
   email: string;
-  pass: string;
+  password: string;
 }
 export interface UserApi {
   ok: boolean;

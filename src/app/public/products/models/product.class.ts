@@ -2,23 +2,21 @@ import { FormGroup } from '@angular/forms';
 export class ProductClass {
   // necessary
   name: string;
-  slug: string;
   //   galery: any[];
-  cover: string;
   price: number;
   description: string;
   content: string;
   stock: number;
   category: number;
   //   ?
+  cover?: string;
+  slug?: string;
   state?: string;
   active?: boolean;
 
   constructor(form: FormGroup) {
     const {
       nameProduct: name,
-      slugProduct: slug,
-      coverProduct: cover,
       priceProduct: price,
       descriptionProduct: description,
       contentProduct: content,
@@ -28,8 +26,6 @@ export class ProductClass {
     } = form.value;
     //   necessary
     this.name = name;
-    this.slug = slug;
-    this.cover = cover;
     this.price = price;
     this.description = description;
     this.content = content;

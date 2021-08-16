@@ -14,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { InventoryComponent } from './products/inventory/inventory.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgxTinymceModule } from 'ngx-tinymce';
     ClientComponent,
     ProductsComponent,
     ProductComponent,
+    InventoryComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +47,7 @@ import { NgxTinymceModule } from 'ngx-tinymce';
     ClientComponent,
     ProductsComponent,
     ProductComponent,
+    InventoryComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

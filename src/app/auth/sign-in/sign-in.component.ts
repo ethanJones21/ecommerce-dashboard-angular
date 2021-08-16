@@ -59,7 +59,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     } else {
       const user = {
         email: form.controls['emailLoginForm'].value,
-        pass: form.controls['passLoginForm'].value,
+        password: form.controls['passLoginForm'].value,
       };
       this.subs.add(
         this.signInServ.login(user).subscribe(({ profile, token }) => {

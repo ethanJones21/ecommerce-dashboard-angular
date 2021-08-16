@@ -54,7 +54,7 @@ export class ClientsService {
 
   deactivateClient(id: string): Observable<desactivateClientItf> {
     return this.http.patch<desactivateClientItf>(`${apiUrl}/clients/${id}`, {
-      id,
+      active: false,
     });
   }
 }

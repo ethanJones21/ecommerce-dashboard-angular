@@ -5,6 +5,7 @@ import { delay, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { ProductsService } from './products.service';
 import { ProductItf } from './models/product.interface';
+import { InventoryService } from './inventory/inventory.service';
 @Component({
   selector: 'Products',
   templateUrl: './products.component.html',
@@ -28,7 +29,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   notPrevPage = false;
   notNextPage = false;
 
-  constructor(private productsServ: ProductsService, private router: Router) {}
+  constructor(
+    private inventoryServ: InventoryService,
+    private productsServ: ProductsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getProducts('', 1);
@@ -42,16 +47,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
     return this.getProducts(termino, 1);
   }
 
+  getImg(img: string) {
+    return this.productsServ.getImg(img);
+  }
+
   getProducts(term: any, page: number) {
     this.term = term;
     this.products$ = this.productsServ.getProducts(term, page, this.limit).pipe(
-      // delay(3000), //prueba de que carge skeleton-load
+      //prueba de que carge skeleton-load
+      // delay(3000),
       map(({ products, ...data }) => {
         this.pagination = { ...data, limit: this.limit };
         return products;
       })
     );
     this.subs.add(this.products$.subscribe());
+  }
+
+  goToInventary(product: ProductItf) {
+    const { id, name } = product;
+    this.inventoryServ.saveProductName(name);
+    this.router.navigate(['/panel/inventory/', id]);
   }
 
   deactivateProduct(id: string) {

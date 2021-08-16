@@ -14,7 +14,7 @@ export class ImgConditions {
   }
 
   sizeImg(file: File, size: number): boolean {
-    if (file.size <= size) {
+    if (file.size >= size) {
       Swal.fire({
         icon: 'error',
         title: 'La imagen no puede superar los 4mb',
@@ -25,7 +25,7 @@ export class ImgConditions {
   }
 
   typesImg(file: File, types: string[]): boolean {
-    if (types.includes(file.type)) {
+    if (!types.includes(file.type)) {
       Swal.fire({
         icon: 'error',
         title: 'No es una imagen',

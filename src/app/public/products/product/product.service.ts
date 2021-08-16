@@ -36,7 +36,7 @@ export class ProductService {
   reset(form: FormGroup) {
     form.reset({
       nameProduct: '',
-      slugProduct: '',
+      // slugProduct: '',
       // galeryProduct: '',
       // coverProduct: '',
       priceProduct: 0,

@@ -47,6 +47,7 @@
               <th>Titulo</th>
               <th>Slug</th>
               <th>Precio</th>
+              <th>Stock</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -54,9 +55,18 @@
             <ng-container *ngFor="let product of products; index as i">
               <tr [class.disabled]="!product.active">
                 <th scope="row">{{ i + 1 }}</th>
-                <td>{{ product.name }}</td>
+
+                <td class="d-flex">
+                  <img
+                    [src]="getImg(product.cover)"
+                    class="img-thumbnail rounded-0 mini"
+                    [alt]="product.cover"
+                  />
+                  <p class="ml-2">{{ product.name }}</p>
+                </td>
                 <td>{{ product.slug }}</td>
                 <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
                 <td>
                   <div class="btn-group dropdown">
                     <button
@@ -79,7 +89,12 @@
                         class="dropdown-item pointer"
                         >Desactivar producto</a
                       >
-                      <!-- <div class="dropdown-divider"></div> -->
+                      <div class="dropdown-divider"></div>
+                      <a
+                        (click)="goToInventary(product)"
+                        class="dropdown-item pointer"
+                        >Inventario</a
+                      >
                     </div>
                   </div>
                 </td>

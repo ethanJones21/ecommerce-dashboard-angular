@@ -1,0 +1,182 @@
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">{{ nameProduct }}</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">
+      Este módulo lista todos el inventario de este producto.
+    </p>
+    <p class="font-size-sm font-weight-medium pl-md-4">
+      <a
+        class="text-nowrap"
+        href="javascript:window.history.back()"
+        rel="noopener"
+        ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+        atrás</a
+      >
+    </p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm">
+  <form
+    [formGroup]="inventoryForm"
+    (ngSubmit)="submitForm(inventoryForm)"
+    novalidate
+  >
+    <div class="row p-4">
+      <div class="col-md-4">
+        <label
+          *ngIf="validCC.supplierInventory"
+          for="text-input"
+          class="form-label text-danger"
+          >{{ errorsCC.supplierInventory }}</label
+        >
+        <label
+          *ngIf="!validCC.supplierInventory"
+          for="text-input"
+          class="form-label"
+          >Proveedor</label
+        >
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Proveedor"
+          formControlName="supplierInventory"
+          name="supplierInventory"
+        />
+      </div>
+      <div class="col-md-4">
+        <label
+          *ngIf="validCC.totalInventory"
+          for="text-input"
+          class="form-label text-danger"
+          >{{ errorsCC.totalInventory }}</label
+        >
+        <label
+          *ngIf="!validCC.totalInventory"
+          for="text-input"
+          class="form-label"
+          >Total</label
+        >
+        <input
+          class="form-control"
+          type="number"
+          placeholder="Total"
+          #inputTotalInventory
+          formControlName="totalInventory"
+          name="totalInventory"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <button
+          *ngIf="!isUpdate"
+          type="submit"
+          class="btn btn-primary"
+          style="margin-top: 2rem"
+          [disabled]="!inventoryForm.valid"
+        >
+          Agregar
+        </button>
+        <button
+          *ngIf="isUpdate"
+          type="submit"
+          class="btn btn-warning"
+          style="margin-top: 2rem"
+          [disabled]="!inventoryForm.valid"
+        >
+          Actualizar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TABLE -->
+
+<div class="card box-shadow-sm" style="min-height: 30rem">
+  <div class="card-header">
+    <h5 style="margin-bottom: 0px">Filtro de inventario</h5>
+  </div>
+  <div class="card-header">
+    <div class="form-floating pt-2">
+      <label class="sr-only" for="inline-form-input-name">Proveedor</label>
+      <input
+        name="searchForNameProducts"
+        class="form-control mb-3 mr-sm-4"
+        type="text"
+        id="inline-form-input-name"
+        placeholder="Buscar por proveedor"
+        #termSearchProducts
+        (keyup.enter)="search(termSearchProducts.value)"
+      />
+    </div>
+  </div>
+  <ng-container *ngIf="inventories$ | async; let inventories; else: loading">
+    <div class="card-body fadein">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Proveedor</th>
+              <th>Total</th>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let inventory of inventories; index as i">
+              <tr>
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ inventory.supplier }}</td>
+                <td>{{ inventory.total }}</td>
+                <td>{{ inventory.createdAt | date: "short" }}</td>
+                <td>{{ inventory.user.name }}</td>
+                <td>
+                  <div class="btn-group dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Opciones
+                    </button>
+                    <div class="dropdown-menu">
+                      <a
+                        (click)="updateInventory(inventory)"
+                        class="dropdown-item pointer"
+                        >Actualizar inventario</a
+                      >
+                      <a
+                        (click)="deleteInventory(inventory.id)"
+                        class="dropdown-item pointer"
+                        >Eliminar inventario</a
+                      >
+                      <!-- <div class="dropdown-divider"></div> -->
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <tr class="text-center" *ngIf="inventories.length == 0">
+              <td colspan="5">No hay resultados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <Pagination
+    [pagination]="pagination"
+    (pageEmitter)="getInventories('', $event)"
+  ></Pagination>
+</div>
+
+<ng-template #loading>
+  <Skeleton-table-load (limit)="(limit)"></Skeleton-table-load>
+</ng-template>

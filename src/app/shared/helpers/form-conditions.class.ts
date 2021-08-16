@@ -11,4 +11,13 @@ export class FormConditions {
     });
     this.router.navigate([route]);
   }
+
+  // por ahora solo para inventario
+  submitSuccessNoRedirect(ok: boolean, msg: string, model: any) {
+    Swal.fire({
+      icon: 'success',
+      title: ok,
+      text: `${msg} : ${model.supplier}`,
+    });
+  }
 }

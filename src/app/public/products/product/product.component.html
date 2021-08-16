@@ -155,7 +155,9 @@
       </div>
     </div>
     <div class="card-footer">
-      <button class="btn btn-primary">Crear producto</button>
+      <button [disabled]="!productForm.valid" class="btn btn-primary">
+        Guardar producto
+      </button>
     </div>
   </div>
 </form>

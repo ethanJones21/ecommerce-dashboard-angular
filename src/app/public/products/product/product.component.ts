@@ -18,6 +18,10 @@ import { formValidControlsProduct } from '../../products/helpers/form-valid-cont
 import { formErrorsControlsProduct } from '../../products/helpers/form-errors-controls-product.class';
 import { FormConditions } from '../../../shared/helpers/form-conditions.class';
 import { ProductClass } from '../models/product.class';
+import { environment } from '../../../../environments/environment';
+import Swal from 'sweetalert2';
+
+const apiUrl = environment.apiUrl;
 
 @Component({
   selector: 'Product',
@@ -68,7 +72,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (id != 'new') {
         this.subs.add(
           this.productsServ.getProduct(id).subscribe((product) => {
-            this.imgSelect = product.cover;
+            this.imgSelect = `${apiUrl}/uploads/products/${product.cover}`;
             this.productServ.setNewProduct(
               this.productForm,
               product,
@@ -89,9 +93,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   initForm() {
     this.productForm = this.fb.group({
       nameProduct: ['', [Validators.required, Validators.min(4)]],
-      // slugProduct: ['', Validators.required],
-      // galeryProduct: ['', Validators.required],
-      // coverProduct: ['', Validators.required],
       priceProduct: [
         0,
         [Validators.required, Validators.pattern(this.validServ.onlyNumber)],
@@ -121,19 +122,28 @@ export class ProductComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      const product = new ProductClass(form);
-      if (this.id === 'new') {
-        this.productsServ
-          .createProduct(product)
-          .subscribe(({ ok, msg, product }) =>
-            this.fc.submitSuccess(ok, msg, product, this.routeInit)
-          );
+      if (this.file && this.imgSelect != 'assets/img/01.jpg') {
+        const product = new ProductClass(form);
+        console.log('antes de enviar porque se perdera:' + product);
+        if (this.id === 'new') {
+          this.productsServ
+            .createProduct(product, this.file)
+            .subscribe(({ ok, msg, product }) =>
+              this.fc.submitSuccess(ok, msg, product, this.routeInit)
+            );
+        } else {
+          this.productsServ
+            .updateProduct(this.id, product, this.file)
+            .subscribe(({ ok, msg, product }) =>
+              this.fc.submitSuccess(ok, msg, product, this.routeInit)
+            );
+        }
       } else {
-        this.productsServ
-          .updateProduct(this.id, product)
-          .subscribe(({ ok, msg, product }) =>
-            this.fc.submitSuccess(ok, msg, product, this.routeInit)
-          );
+        Swal.fire({
+          icon: 'error',
+          title: 'Falta imagen',
+          text: 'Es necesario colocar una imagen de portada al producto',
+        });
       }
     }
   }

@@ -8,6 +8,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
 import { RoleGuard } from '../core/guards/role.guard';
 import { TokenExpiredGuard } from '../core/guards/token-expired.guard';
+import { InventoryComponent } from './products/inventory/inventory.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
         path: 'products/:id',
         data: { role: 'USER' },
         component: ProductComponent,
+      },
+      {
+        path: 'inventory/:productID',
+        data: { role: 'ADMIN' },
+        component: InventoryComponent,
       },
       { path: '**', redirectTo: 'clients', pathMatch: 'full' },
     ],
