@@ -17,6 +17,7 @@ import { FormConditions } from 'src/app/shared/helpers/form-conditions.class';
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent implements OnInit, OnDestroy {
+  isUpdate = false;
   id = '';
   clientForm!: FormGroup;
   valueCC!: formValueControlsClient;
@@ -52,11 +53,10 @@ export class ClientComponent implements OnInit, OnDestroy {
       this.id = id;
       if (id != 'new') {
         this.subs.add(
-          this.clientsServ
-            .getClient(id)
-            .subscribe((client) =>
-              this.clientServ.setNewClient(this.clientForm, client)
-            )
+          this.clientsServ.getClient(id).subscribe((client) => {
+            this.clientServ.setNewClient(this.clientForm, client);
+            this.isUpdate = true;
+          })
         );
       }
     });

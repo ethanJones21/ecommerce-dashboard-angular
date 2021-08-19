@@ -23,13 +23,15 @@
   </div>
   <div class="card-header">
     <div class="form-floating pt-2">
-      <label class="sr-only" for="inline-form-input-name">Apellido</label>
+      <label class="sr-only" for="inline-form-input-name"
+        >Nombre, Apellido o Correo</label
+      >
       <input
         name="searchForNameClients"
         class="form-control mb-3 mr-sm-4"
         type="text"
         id="inline-form-input-name"
-        placeholder="Buscar por nombre, apellido o email"
+        placeholder="Buscar por nombre, apellido o correo"
         #termSearchClients
         (keyup.enter)="search(termSearchClients.value)"
       />

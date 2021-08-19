@@ -1,0 +1,118 @@
+<form [formGroup]="couponForm" (ngSubmit)="submitForm(couponForm)" novalidate>
+  <!-- Page title-->
+  <div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cupones</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Formulario para crear un nuevo cupon</p>
+      <p class="font-size-sm font-weight-medium pl-md-4">
+        <a
+          class="text-nowrap"
+          href="javascript:window.history.back()"
+          rel="noopener"
+          ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+          atrás</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <!-- Code -->
+    <div class="col-md-8">
+      <label
+        *ngIf="validCC.codeCoupon"
+        for="text-input"
+        class="form-label text-danger"
+        >{{ errorsCC.codeCoupon }}</label
+      >
+      <label *ngIf="!validCC.codeCoupon" for="text-input" class="form-label"
+        >Codigo</label
+      >
+      <div class="input-group">
+        <button class="btn btn-success" type="button" (click)="generateCode()">
+          Generar
+        </button>
+        <input
+          formControlName="codeCoupon"
+          name="codeCoupon"
+          class="form-control"
+          type="text"
+          placeholder="Codigo del cupon"
+        />
+      </div>
+    </div>
+
+    <!-- Limit -->
+    <div class="col-md-4">
+      <label
+        *ngIf="validCC.limitCoupon"
+        for="text-input"
+        class="form-label text-danger"
+        >{{ errorsCC.limitCoupon }}</label
+      >
+      <label *ngIf="!validCC.limitCoupon" for="text-input" class="form-label"
+        >Limite</label
+      >
+      <input
+        formControlName="limitCoupon"
+        name="limitCoupon"
+        class="form-control"
+        placeholder="Cuantos cupones van a circular"
+        type="number"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <!-- Value -->
+    <div class="col-md-3">
+      <label
+        *ngIf="validCC.valueCoupon"
+        for="text-input"
+        class="form-label text-danger"
+        >{{ errorsCC.valueCoupon }}</label
+      >
+      <label *ngIf="!validCC.valueCoupon" for="text-input" class="form-label"
+        >Valor</label
+      >
+      <input
+        formControlName="valueCoupon"
+        name="valueCoupon"
+        class="form-control"
+        type="number"
+        placeholder="Valor del cupon"
+      />
+    </div>
+
+    <!-- Type -->
+    <div class="col-md-3 d-flex flex-column">
+      <label for="select-input" class="form-label">Tipo</label>
+      <select
+        formControlName="typeCoupon"
+        name="typeCoupon"
+        class="form-select"
+      >
+        <option>Escoge un tipo...</option>
+        <option>Porcentaje</option>
+        <option>Valor Fijo</option>
+      </select>
+    </div>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    *ngIf="!isUpdate"
+    [disabled]="!couponForm.valid"
+    type="submit"
+  >
+    Guardar
+  </button>
+  <button
+    class="btn btn-warning"
+    *ngIf="isUpdate"
+    [disabled]="!couponForm.valid"
+    type="submit"
+  >
+    Actualizar
+  </button>
+</form>

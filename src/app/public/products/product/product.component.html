@@ -155,8 +155,20 @@
       </div>
     </div>
     <div class="card-footer">
-      <button [disabled]="!productForm.valid" class="btn btn-primary">
+      <button
+        *ngIf="!isUpdate"
+        [disabled]="!productForm.valid"
+        class="btn btn-primary"
+      >
         Guardar producto
+      </button>
+      <button
+        class="btn btn-warning"
+        *ngIf="isUpdate"
+        [disabled]="!productForm.valid"
+        type="submit"
+      >
+        Actualizar
       </button>
     </div>
   </div>

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IMGTYPES } from '../../../core/models/img-types.model';
+import { IMGTYPES } from '../../../shared/models/img-types.model';
 import { ImgConditions } from '../../../shared/helpers/img-conditions.class';
 import { ValidatorsService } from '../../../shared/services/validators.service';
 import { Subscription } from 'rxjs';
@@ -29,6 +29,7 @@ const apiUrl = environment.apiUrl;
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit, OnDestroy {
+  isUpdate = false;
   imgTypes = IMGTYPES;
   productForm!: FormGroup;
   valueCC!: formValueControlsProduct;
@@ -72,6 +73,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (id != 'new') {
         this.subs.add(
           this.productsServ.getProduct(id).subscribe((product) => {
+            this.isUpdate = true;
             this.imgSelect = `${apiUrl}/uploads/products/${product.cover}`;
             this.productServ.setNewProduct(
               this.productForm,

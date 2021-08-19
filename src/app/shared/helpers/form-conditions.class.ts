@@ -6,8 +6,8 @@ export class FormConditions {
   submitSuccess(ok: boolean, msg: string, model: any, route: string) {
     Swal.fire({
       icon: 'success',
-      title: ok,
-      text: `${msg} : ${model.name}`,
+      title: 'ok',
+      text: msg,
     });
     this.router.navigate([route]);
   }

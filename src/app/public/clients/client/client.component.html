@@ -153,18 +153,20 @@
     />
   </div>
 
-  <!-- Color input -->
-  <!-- <div class="mb-4">
-      <label for="color-input" class="form-label">Color</label>
-      <input
-        class="form-control form-control-color"
-        type="color"
-        id="color-input"
-        value="#35cfe3"
-      />
-    </div> -->
-
-  <button class="btn btn-primary" [disabled]="!clientForm.valid" type="submit">
+  <button
+    class="btn btn-primary"
+    *ngIf="!isUpdate"
+    [disabled]="!clientForm.valid"
+    type="submit"
+  >
     Guardar
+  </button>
+  <button
+    class="btn btn-warning"
+    *ngIf="isUpdate"
+    [disabled]="!clientForm.valid"
+    type="submit"
+  >
+    Actualizar
   </button>
 </form>
