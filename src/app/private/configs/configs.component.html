@@ -1,1 +1,182 @@
-<p>configs works!</p>
+<form [formGroup]="configForm" (ngSubmit)="submitForm(configForm)" novalidate>
+  <!-- Page title-->
+  <div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Configuraciones</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">
+        Este módulo se estableve las configuraciones de la tineda.
+      </p>
+    </div>
+  </div>
+
+  <div class="card box-shadow-sm">
+    <div class="card-header">
+      <h5 style="margin-bottom: 0px">Configuraciones</h5>
+    </div>
+
+    <div class="card-body">
+      <div style="max-width: 48rem">
+        <div class="form-group row align-items-center">
+          <label
+            class="col-md-3 col-form-label font-weight-medium"
+            for="text-input"
+            >Nombre de la tienda</label
+          >
+          <div class="col-md-9">
+            <input
+              class="form-control"
+              type="text"
+              id="text-input"
+              formControlName="titleConfig"
+              name="titleConfig"
+            />
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label
+            class="col-md-3 col-form-label font-weight-medium"
+            for="text-input"
+            >Facturación</label
+          >
+          <div class="col-md-4">
+            <input
+              class="form-control"
+              type="number"
+              id="text-input"
+              formControlName="serieConfig"
+              name="serieConfig"
+            />
+          </div>
+          <div class="col-md-5">
+            <input
+              class="form-control"
+              type="number"
+              id="text-input"
+              formControlName="correlativeConfig"
+              name="correlativeConfig"
+            />
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label
+            class="col-md-3 col-form-label font-weight-medium"
+            for="text-input"
+            >Categorías</label
+          >
+
+          <div class="col-md-9">
+            <!-- <a href="" class="mb-5">Agregar</a> -->
+            <div class="table-responsive mt-3">
+              <table class="table table-sm">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center">Categoria</th>
+                    <th class="text-center">Icono</th>
+                    <th class="text-center">
+                      <i class="fas fa-trash-alt"></i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="categoriesConfig">
+                  <tr
+                    *ngFor="
+                      let control of valueCC.categories.controls;
+                      let i = index
+                    "
+                  >
+                    <ng-container [formGroupName]="i">
+                      <td>
+                        <input
+                          class="form-control"
+                          type="text"
+                          id="text-input"
+                          placeholder="Titulo"
+                          formControlName="category"
+                          name="category"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          class="form-control"
+                          type="text"
+                          id="text-input"
+                          placeholder="Icono"
+                          formControlName="icon"
+                          name="icon"
+                        />
+                      </td>
+                    </ng-container>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-icon"
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <button
+                        class="btn btn-block btn-primary"
+                        (click)="addCategory()"
+                        type="button"
+                      >
+                        + Agregar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row align-items-center">
+          <label
+            class="col-md-3 col-form-label font-weight-medium"
+            for="file-input"
+            >Logo</label
+          >
+          <div class="col-md-9">
+            <!-- <div class="cs-file-drop-area">
+              <div #dropIconConfig class="cs-file-drop-icon cxi-upload"></div>
+              <span class="cs-file-drop-message">Arrastre la imagen</span>
+              <input
+                type="file"
+                class="cs-file-drop-input"
+                (change)="onFileChange($event)"
+              />
+              <button
+                type="button"
+                class="cs-file-drop-btn btn btn-outline-primary btn-sm"
+              >
+                Subir imagen
+              </button>
+            </div> -->
+            <div class="cs-file-drop-area">
+              <div
+                #dropIconConfig
+                class="cs-file-drop-preview img-thumbnail rounded"
+              ></div>
+              <span class="cs-file-drop-message">Arrastre la imagen</span>
+              <input
+                type="file"
+                class="cs-file-drop-input"
+                (change)="onFileChange($event)"
+              />
+              <button
+                type="button"
+                class="cs-file-drop-btn btn btn-outline-primary btn-sm"
+              >
+                Subir imagen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-warning mr-3" type="submit">Actualizar</button>
+    </div>
+  </div>
+</form>

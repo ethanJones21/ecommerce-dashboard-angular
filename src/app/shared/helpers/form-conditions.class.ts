@@ -17,7 +17,7 @@ export class FormConditions {
     Swal.fire({
       icon: 'success',
       title: ok,
-      text: `${msg} : ${model.supplier}`,
+      text: msg,
     });
   }
 }
