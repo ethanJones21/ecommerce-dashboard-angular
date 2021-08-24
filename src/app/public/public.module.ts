@@ -18,6 +18,8 @@ import { InventoryComponent } from './products/inventory/inventory.component';
 import { CouponsComponent } from './coupons/coupons.component';
 import { CouponComponent } from './coupons/coupon/coupon.component';
 import { ConfigsComponent } from '../private/configs/configs.component';
+import { GaleryComponent } from './products/galery/galery.component';
+import { VarietiesComponent } from './products/varieties/varieties.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { ConfigsComponent } from '../private/configs/configs.component';
     CouponsComponent,
     CouponComponent,
     ConfigsComponent,
+    GaleryComponent,
+    VarietiesComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +61,7 @@ import { ConfigsComponent } from '../private/configs/configs.component';
     CouponsComponent,
     CouponComponent,
     ConfigsComponent,
+    VarietiesComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -12,6 +12,8 @@ import { InventoryComponent } from './products/inventory/inventory.component';
 import { CouponsComponent } from './coupons/coupons.component';
 import { CouponComponent } from './coupons/coupon/coupon.component';
 import { ConfigsComponent } from '../private/configs/configs.component';
+import { VarietiesComponent } from './products/varieties/varieties.component';
+import { GaleryComponent } from './products/galery/galery.component';
 
 const routes: Routes = [
   {
@@ -45,9 +47,19 @@ const routes: Routes = [
         component: ProductComponent,
       },
       {
-        path: 'inventory/:productID',
+        path: 'products/inventory/:productID',
         data: { role: 'ADMIN' },
         component: InventoryComponent,
+      },
+      {
+        path: 'products/varieties/:productID',
+        data: { role: 'USER' },
+        component: VarietiesComponent,
+      },
+      {
+        path: 'products/galery/:productID',
+        data: { role: 'USER' },
+        component: GaleryComponent,
       },
       {
         path: 'configs',

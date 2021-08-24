@@ -1,0 +1,122 @@
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">{{ nameProduct }}</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">
+      Este módulo se establece las variedades del producto
+    </p>
+    <p class="font-size-sm font-weight-medium pl-md-4">
+      <a
+        class="text-nowrap"
+        href="javascript:window.history.back()"
+        rel="noopener"
+        ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+        atrás</a
+      >
+    </p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm">
+  <div class="card-body">
+    <div class="card-header">Ya puestos</div>
+    <div class="table-responsive mt-3">
+      <table class="table table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th class="text-center">Nombre de la imagen</th>
+            <th class="text-center">
+              <i class="fas fa-trash-alt"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let img of galery$ | async; let i = index">
+            <td>
+              <img
+                [src]="getImg(img.name)"
+                class="img-thumbnail rounded-0 mini"
+                alt=""
+              />
+              {{ img.name }}
+            </td>
+            <td class="text-center">
+              <button
+                (click)="deleteImgOfDB(img.id)"
+                type="button"
+                class="btn btn-outline-danger btn-icon"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card box-shadow-sm">
+  <div class="card-body">
+    <div style="max-width: 48rem">
+      <div class="form-group row align-items-center">
+        <div class="col-md-12">
+          <div class="cs-file-drop-area">
+            <div class="cs-file-drop-icon cxi-upload"></div>
+            <span class="cs-file-drop-message">Arrastre la imagen</span>
+            <input
+              type="file"
+              multiple
+              class="cs-file-drop-input"
+              (change)="onFileChange($event)"
+            />
+            <button
+              type="button"
+              class="cs-file-drop-btn btn btn-outline-primary btn-sm"
+            >
+              Subir imagen
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+          <table class="table table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center">Nombre de la imagen</th>
+                <th class="text-center">
+                  <i class="fas fa-trash-alt"></i>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let img of galery; let i = index">
+                <td>
+                  <img
+                    [src]="img.url"
+                    class="img-thumbnail rounded-0 mini"
+                    alt=""
+                  />
+                  {{ img.name }}
+                </td>
+                <td class="text-center">
+                  <button
+                    (click)="deleteImg(i)"
+                    type="button"
+                    class="btn btn-outline-danger btn-icon"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-primary mr-3" type="button" (click)="submitForm()">
+      Agregar
+    </button>
+  </div>
+</div>

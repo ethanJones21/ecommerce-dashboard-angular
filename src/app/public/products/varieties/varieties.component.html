@@ -1,0 +1,134 @@
+<form [formGroup]="varietyForm" (ngSubmit)="submitForm(varietyForm)" novalidate>
+  <!-- Page title-->
+  <div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">{{ nameProduct }}</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">
+        Este módulo se establece las variedades del producto
+      </p>
+      <p class="font-size-sm font-weight-medium pl-md-4">
+        <a
+          class="text-nowrap"
+          href="javascript:window.history.back()"
+          rel="noopener"
+          ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+          atrás</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="card box-shadow-sm">
+    <div class="card-header">
+      <h5>
+        Titulos de variedades que han sido creadas
+        <span class="h6 text-primary">(Elija una opcion)</span>
+      </h5>
+
+      <div class="row px-3">
+        <ng-container *ngFor="let variety of varieties$ | async">
+          <span
+            (click)="selectVariety(variety)"
+            class="badge bg-secondary pointer"
+          >
+            {{ variety.title }}
+          </span>
+          <a
+            (click)="deleteVariety(variety.id)"
+            class="mr-4 text-white bg-danger px-1 pointer"
+          >
+            <i class="fa fa-times"></i>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div style="max-width: 48rem">
+        <div class="form-group row align-items-center">
+          <div class="col-lg-12 form-group">
+            <label
+              *ngIf="!validCC.titleVariety"
+              for="text-input"
+              class="form-label"
+              >Nombre del producto</label
+            >
+            <input
+              formControlName="titleVariety"
+              name="titleVariety"
+              type="text"
+              class="form-control"
+              placeholder="Titulo de producto"
+            />
+          </div>
+
+          <div class="col-md-9">
+            <div class="table-responsive mt-3">
+              <table class="table table-sm">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center">Unidad</th>
+                    <th class="text-center">
+                      <i class="fas fa-trash-alt"></i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="unitsVariety">
+                  <tr
+                    *ngFor="let unit of valueCC.units.controls; let i = index"
+                  >
+                    <td>
+                      <input
+                        class="form-control"
+                        type="text"
+                        id="text-input"
+                        placeholder="Unit"
+                        [formControlName]="i"
+                      />
+                    </td>
+                    <td class="text-center">
+                      <button
+                        (click)="deleteUnit(i)"
+                        type="button"
+                        class="btn btn-outline-danger btn-icon"
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <button
+                        class="btn btn-block btn-primary"
+                        (click)="addVariety()"
+                        type="button"
+                      >
+                        + Agregar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button *ngIf="!isUpdate" class="btn btn-primary mr-3" type="submit">
+        Guardar cambios
+      </button>
+      <button *ngIf="isUpdate" class="btn btn-warning mr-3" type="submit">
+        Actualizar
+      </button>
+      <button
+        *ngIf="isUpdate"
+        class="btn btn-dark mr-3"
+        type="button"
+        (click)="resetAll()"
+      >
+        Nuevo
+      </button>
+    </div>
+  </div>
+</form>

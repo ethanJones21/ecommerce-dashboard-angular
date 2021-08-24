@@ -33,3 +33,9 @@ tr.disabled {
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.mini {
+  max-width: 4rem;
+  max-height: 4rem;
+  object-fit: cover;
+}

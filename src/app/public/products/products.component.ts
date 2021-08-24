@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { ProductsService } from './products.service';
 import { ProductItf } from './models/product.interface';
 import { InventoryService } from './inventory/inventory.service';
+import { VarietiesService } from './varieties/varieties.service';
+import { GaleryService } from './galery/galery.service';
 @Component({
   selector: 'Products',
   templateUrl: './products.component.html',
@@ -30,6 +32,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   notNextPage = false;
 
   constructor(
+    private galeryServ: GaleryService,
+    private varietiesServ: VarietiesService,
     private inventoryServ: InventoryService,
     private productsServ: ProductsService,
     private router: Router
@@ -67,7 +71,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
   goToInventary(product: ProductItf) {
     const { id, name } = product;
     this.inventoryServ.saveProductName(name);
-    this.router.navigate(['/panel/inventory/', id]);
+    this.router.navigate(['/panel/products/inventory/', id]);
+  }
+
+  goToVarieties(product: ProductItf) {
+    const { id, name } = product;
+    this.varietiesServ.saveProductName(name);
+    this.router.navigate(['/panel/products/varieties/', id]);
+  }
+
+  goToGalery(product: ProductItf) {
+    const { id, name } = product;
+    this.galeryServ.saveProductName(name);
+    this.router.navigate(['/panel/products/galery/', id]);
   }
 
   deactivateProduct(id: string) {

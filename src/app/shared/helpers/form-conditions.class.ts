@@ -13,7 +13,7 @@ export class FormConditions {
   }
 
   // por ahora solo para inventario
-  submitSuccessNoRedirect(ok: boolean, msg: string, model: any) {
+  submitSuccessNoRedirect(ok: boolean, msg: string, model?: any) {
     Swal.fire({
       icon: 'success',
       title: ok,
