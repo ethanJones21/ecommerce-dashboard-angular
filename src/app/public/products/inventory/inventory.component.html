@@ -96,9 +96,12 @@
 
 <div class="card box-shadow-sm" style="min-height: 30rem">
   <div class="card-header">
-    <h5 style="margin-bottom: 0px">Filtro de inventario</h5>
-  </div>
-  <div class="card-header">
+    <div class="dflex justify-content-between align-items-center mb-2">
+      <h5>Filtro de inventario</h5>
+      <button class="btn btn-success" (click)="exportToExcel()" type="button">
+        Exportar a Excel
+      </button>
+    </div>
     <div class="form-floating pt-2">
       <label class="sr-only" for="inline-form-input-name">Proveedor</label>
       <input

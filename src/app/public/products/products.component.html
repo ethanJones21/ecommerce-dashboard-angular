@@ -21,9 +21,12 @@
 
 <div class="card box-shadow-sm" style="min-height: 30rem">
   <div class="card-header">
-    <h5 style="margin-bottom: 0px">Filtro de productos</h5>
-  </div>
-  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5>Filtro de productos</h5>
+      <button class="btn btn-success" type="button" (click)="exportToExcel()">
+        Exportar a excel
+      </button>
+    </div>
     <div class="form-floating pt-2">
       <label class="sr-only" for="inline-form-input-name">Nombre o Slug</label>
       <input

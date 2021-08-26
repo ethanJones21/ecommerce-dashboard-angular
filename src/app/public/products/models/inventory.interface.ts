@@ -3,6 +3,9 @@ export interface InventoryItf {
   total: number;
   supplier: string;
   createdAt: any;
-  user?: any;
+  user: {
+    id: string;
+    name: string;
+  };
   product?: string;
 }

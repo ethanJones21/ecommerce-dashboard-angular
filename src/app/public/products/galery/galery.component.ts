@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-  Renderer2,
-} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormConditions } from '../../../shared/helpers/form-conditions.class';
@@ -57,11 +51,6 @@ export class GaleryComponent implements OnInit {
   }
 
   initGalery() {
-    // this.galeryServ.getGalery(this.productID).subscribe((gArr) => {
-    //   gArr.forEach((name: string, i: number) => {
-    //     this.galery.push({ name, url: this.galeryServ.getImg(name) });
-    //   });
-    // });
     this.galery$ = this.galeryServ.getGalery(this.productID);
   }
 

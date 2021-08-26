@@ -18,6 +18,8 @@ import { FormConditions } from '../../../shared/helpers/form-conditions.class';
 import { formValueControlsInventory } from '../helpers/form-value-controls-inventory.class';
 import { formValidControlsInventory } from '../helpers/form-valid-controls-inventory.class';
 import { formErrorsControlsInventory } from '../helpers/form-errors-controls-inventory.class';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 
 @Component({
   selector: 'Inventory',
@@ -50,6 +52,7 @@ export class InventoryComponent implements OnInit {
   subs = new Subscription();
   pagesEl: ElementRef[] = [];
 
+  excelInventory: any[] = [];
   limit = 10;
   notPrevPage = false;
   notNextPage = false;
@@ -99,6 +102,36 @@ export class InventoryComponent implements OnInit {
       ],
     });
     this.initControls();
+  }
+
+  exportToExcel() {
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet(
+      `Reporte de inventario del producto ${this.nameProduct}`
+    );
+    worksheet.addRow(undefined);
+    for (let x1 of this.excelInventory) {
+      let x2 = Object.keys(x1);
+      let temp = [];
+      for (let y of x2) {
+        temp.push(x1[y]);
+      }
+      worksheet.addRow(temp);
+    }
+    let fname = 'REP01 ';
+    worksheet.columns = [
+      { header: 'Proveedor', key: 'col1', width: 40 },
+      { header: 'Total', key: 'col2', width: 15 },
+      { header: 'Fecha', key: 'col3', width: 20 },
+      { header: 'Usuario', key: 'col4', width: 20 },
+    ];
+
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      fs.saveAs(blob, fname + '-' + new Date().valueOf() + '.xlsx');
+    });
   }
 
   submitForm(form: FormGroup) {
@@ -158,7 +191,17 @@ export class InventoryComponent implements OnInit {
           return inventories;
         })
       );
-    this.subs.add(this.inventories$.subscribe());
+    this.subs.add(
+      this.inventories$.subscribe((inventories) =>
+        inventories.forEach(({ supplier, total, createdAt, user }) => {
+          const { name } = user;
+          const date = createdAt.split('T')[0];
+          const hour = createdAt.split('T')[1].substring(0, 8);
+          const parseDate = `${date} / ${hour}`;
+          this.excelInventory.push({ supplier, total, parseDate, name });
+        })
+      )
+    );
   }
 
   updateInventory(inventory: InventoryItf) {
