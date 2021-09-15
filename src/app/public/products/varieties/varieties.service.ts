@@ -46,20 +46,20 @@ export class VarietiesService {
 
   getVarieties(productID: string): Observable<any> {
     return this.http
-      .get<any>(`${apiUrl}/varieties/${productID}`)
+      .get<any>(`${apiUrl}/users/varieties/${productID}`)
       .pipe(map(({ ok, varieties }) => varieties));
   }
 
   createVariety(productID: string, data: any): Observable<any> {
-    return this.http.post<any>(`${apiUrl}/varieties/${productID}`, data);
+    return this.http.post<any>(`${apiUrl}/users/varieties/${productID}`, data);
   }
   updateVariety(productID: string, data: any): Observable<any> {
-    return this.http.put<any>(`${apiUrl}/varieties/${productID}`, data);
+    return this.http.put<any>(`${apiUrl}/users/varieties/${productID}`, data);
   }
 
   deleteVariety(productID: string, varietyID: string): Observable<any> {
     return this.http.delete<any>(
-      `${apiUrl}/varieties/${productID}/${varietyID}`
+      `${apiUrl}/users/varieties/${productID}/${varietyID}`
     );
   }
 }

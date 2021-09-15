@@ -28,29 +28,34 @@ export class CouponsService {
   ): Observable<onlyCouponsInfoItf> {
     return this.http
       .get<getCouponsItf>(
-        `${apiUrl}/coupons/paginado?term=${term}&page=${page}&limit=${limit}`
+        `${apiUrl}/users/coupons/paginado?term=${term}&page=${page}&limit=${limit}`
       )
       .pipe(map(({ ok, coupons }) => coupons));
   }
 
   getCoupon(id: string): Observable<CouponItf> {
     return this.http
-      .get<getCouponItf>(`${apiUrl}/coupons/${id}`)
+      .get<getCouponItf>(`${apiUrl}/users/coupons/${id}`)
       .pipe(map(({ ok, coupon }) => coupon));
   }
 
   createCoupon(data: any): Observable<createUpdateCouponItf> {
-    return this.http.post<createUpdateCouponItf>(`${apiUrl}/coupons`, data);
+    return this.http.post<createUpdateCouponItf>(
+      `${apiUrl}/users/coupons`,
+      data
+    );
   }
 
   updateCoupon(id: string, data: any): Observable<createUpdateCouponItf> {
     return this.http.put<createUpdateCouponItf>(
-      `${apiUrl}/coupons/${id}`,
+      `${apiUrl}/users/coupons/${id}`,
       data
     );
   }
 
   deleteCoupon(id: string): Observable<deleteInventoryItf> {
-    return this.http.delete<deleteInventoryItf>(`${apiUrl}/coupons/${id}`);
+    return this.http.delete<deleteInventoryItf>(
+      `${apiUrl}/users/coupons/${id}`
+    );
   }
 }

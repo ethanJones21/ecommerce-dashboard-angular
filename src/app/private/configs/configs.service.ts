@@ -18,18 +18,18 @@ export class ConfigsService {
 
   getConfig(): Observable<ConfigItf> {
     return this.http
-      .get<getConfigItf>(`${apiUrl}/configs`)
+      .get<getConfigItf>(`${apiUrl}/admins/configs`)
       .pipe(map(({ ok, config }) => config));
   }
 
   updateConfig(data: any, file: File): Observable<createUpdateConfigItf> {
     const fd = new FormData();
     this.destructureData(data, file, fd);
-    return this.http.put<createUpdateConfigItf>(`${apiUrl}/configs`, fd);
+    return this.http.put<createUpdateConfigItf>(`${apiUrl}/admins/configs`, fd);
   }
 
   getImg(logo: string) {
-    return `${apiUrl}/uploads/logo/${logo}`;
+    return `${apiUrl}/file/logo/${logo}`;
   }
 
   private destructureData(data: any, file: File, fd: FormData) {

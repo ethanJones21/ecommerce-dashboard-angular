@@ -5,14 +5,24 @@ import { SkeletonTableLoadComponent } from './components/skeleton-table-load/ske
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     LoadingComponent,
     SkeletonTableLoadComponent,
     PaginationComponent,
+    NavbarComponent,
+    SidebarComponent,
   ],
   imports: [CommonModule, RouterModule, NgxSkeletonLoaderModule],
-  exports: [LoadingComponent, SkeletonTableLoadComponent, PaginationComponent],
+  exports: [
+    LoadingComponent,
+    SkeletonTableLoadComponent,
+    PaginationComponent,
+    NavbarComponent,
+    SidebarComponent,
+  ],
 })
 export class SharedModule {}

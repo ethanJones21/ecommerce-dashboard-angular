@@ -43,7 +43,7 @@ export class InventoryService {
   ): Observable<onlyInventoriesInfoItf> {
     return this.http
       .get<getInventoriesItf>(
-        `${apiUrl}/inventories/${productID}/paginado?term=${term}&page=${page}&limit=${limit}`
+        `${apiUrl}/users/inventories/${productID}/paginado?term=${term}&page=${page}&limit=${limit}`
       )
       .pipe(map(({ ok, inventories }) => inventories));
   }
@@ -54,19 +54,21 @@ export class InventoryService {
   ): Observable<createUpdateInventoryItf> {
     console.log(productID);
     return this.http.post<createUpdateInventoryItf>(
-      `${apiUrl}/inventories/${productID}`,
+      `${apiUrl}/users/inventories/${productID}`,
       data
     );
   }
 
   updateInventory(id: string, data: any): Observable<createUpdateInventoryItf> {
     return this.http.put<createUpdateInventoryItf>(
-      `${apiUrl}/inventories/${id}`,
+      `${apiUrl}/users/inventories/${id}`,
       data
     );
   }
 
   deleteInventory(id: string): Observable<deleteInventoryItf> {
-    return this.http.delete<deleteInventoryItf>(`${apiUrl}/inventories/${id}`);
+    return this.http.delete<deleteInventoryItf>(
+      `${apiUrl}/users/inventories/${id}`
+    );
   }
 }

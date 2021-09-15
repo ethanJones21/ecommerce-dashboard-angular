@@ -27,34 +27,37 @@ export class ClientsService {
   ): Observable<onlyClientsInfoItf> {
     return this.http
       .get<getClientsItf>(
-        `${apiUrl}/clients/paginado?term=${term}&page=${page}&limit=${limit}`
+        `${apiUrl}/admins/clients/paginado?term=${term}&page=${page}&limit=${limit}`
       )
       .pipe(map(({ ok, clients }) => clients));
   }
 
   getClient(id: string): Observable<ClientItf> {
     return this.http
-      .get<getClientItf>(`${apiUrl}/clients/${id}`)
+      .get<getClientItf>(`${apiUrl}/admins/clients/${id}`)
       .pipe(map(({ ok, client }) => client));
   }
 
   createClient(data: {}): Observable<createUpdateClientsItf> {
     return this.http.post<createUpdateClientsItf>(
-      `${apiUrl}/clients/test`,
+      `${apiUrl}/admins/clients/test`,
       data
     );
   }
 
   updateClient(id: string, data: {}): Observable<createUpdateClientsItf> {
     return this.http.put<createUpdateClientsItf>(
-      `${apiUrl}/clients/${id}`,
+      `${apiUrl}/admins/clients/${id}`,
       data
     );
   }
 
   deactivateClient(id: string): Observable<desactivateClientItf> {
-    return this.http.patch<desactivateClientItf>(`${apiUrl}/clients/${id}`, {
-      active: false,
-    });
+    return this.http.patch<desactivateClientItf>(
+      `${apiUrl}/admins/clients/${id}`,
+      {
+        active: false,
+      }
+    );
   }
 }

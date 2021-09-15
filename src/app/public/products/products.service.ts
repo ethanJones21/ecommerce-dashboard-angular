@@ -27,21 +27,24 @@ export class ProductsService {
   ): Observable<onlyProductsInfoItf> {
     return this.http
       .get<getProductsItf>(
-        `${apiUrl}/products/paginado?term=${term}&page=${page}&limit=${limit}`
+        `${apiUrl}/users/products/paginado?term=${term}&page=${page}&limit=${limit}`
       )
       .pipe(map(({ ok, products }) => products));
   }
 
   getProduct(id: string): Observable<ProductItf> {
     return this.http
-      .get<getProductItf>(`${apiUrl}/products/${id}`)
+      .get<getProductItf>(`${apiUrl}/users/products/${id}`)
       .pipe(map(({ ok, product }) => product));
   }
 
   createProduct(data: any, file: File): Observable<createUpdateProductsItf> {
     const fd = new FormData();
     this.destructureData(data, file, fd);
-    return this.http.post<createUpdateProductsItf>(`${apiUrl}/products`, fd);
+    return this.http.post<createUpdateProductsItf>(
+      `${apiUrl}/users/products`,
+      fd
+    );
   }
 
   updateProduct(
@@ -52,19 +55,22 @@ export class ProductsService {
     const fd = new FormData();
     this.destructureData(data, file, fd);
     return this.http.put<createUpdateProductsItf>(
-      `${apiUrl}/products/${id}`,
+      `${apiUrl}/users/products/${id}`,
       fd
     );
   }
 
   deactivateProduct(id: string): Observable<desactivateProductItf> {
-    return this.http.patch<desactivateProductItf>(`${apiUrl}/products/${id}`, {
-      active: false,
-    });
+    return this.http.patch<desactivateProductItf>(
+      `${apiUrl}/users/products/${id}`,
+      {
+        active: false,
+      }
+    );
   }
 
   getImg(img: string) {
-    return `${apiUrl}/uploads/products/${img}`;
+    return `${apiUrl}/file/products/${img}`;
   }
 
   private destructureData(data: any, file: File, fd: FormData) {

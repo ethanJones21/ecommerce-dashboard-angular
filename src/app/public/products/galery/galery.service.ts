@@ -23,7 +23,7 @@ export class GaleryService {
 
   getGalery(productID: string): Observable<any> {
     return this.http
-      .get<any>(`${apiUrl}/galery/${productID}`)
+      .get<any>(`${apiUrl}/users/galery/${productID}`)
       .pipe(map(({ ok, galery }) => galery));
   }
   // : Observable<any>
@@ -32,14 +32,16 @@ export class GaleryService {
     for (let i = 0; i < files.length; i++) {
       fd.append('galery', files[i]);
     }
-    return this.http.put<any>(`${apiUrl}/galery/${productID}`, fd);
+    return this.http.put<any>(`${apiUrl}/users/galery/${productID}`, fd);
   }
 
   deleteImgOfGalery(productID: string, galeryID: string) {
-    return this.http.delete<any>(`${apiUrl}/galery/${productID}/${galeryID}`);
+    return this.http.delete<any>(
+      `${apiUrl}/users/galery/${productID}/${galeryID}`
+    );
   }
 
   getImg(img: string) {
-    return `${apiUrl}/uploads/products/${img}`;
+    return `${apiUrl}/file/products/${img}`;
   }
 }

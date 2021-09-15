@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from './public.component';
-import { HomeComponent } from '../private/inicio/home.component';
-import { ClientComponent } from './clients/client/client.component';
-import { ClientsComponent } from './clients/clients.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
-import { RoleGuard } from '../core/guards/role.guard';
-import { TokenExpiredGuard } from '../core/guards/token-expired.guard';
+import { RoleGuard } from '../auth/guards/role.guard';
+import { TokenExpiredGuard } from '../auth/guards/token-expired.guard';
 import { InventoryComponent } from './products/inventory/inventory.component';
 import { CouponsComponent } from './coupons/coupons.component';
 import { CouponComponent } from './coupons/coupon/coupon.component';
-import { ConfigsComponent } from '../private/configs/configs.component';
 import { VarietiesComponent } from './products/varieties/varieties.component';
 import { GaleryComponent } from './products/galery/galery.component';
 
@@ -21,21 +17,6 @@ const routes: Routes = [
     canActivateChild: [RoleGuard, TokenExpiredGuard],
     component: PublicComponent,
     children: [
-      {
-        path: 'inicio',
-        data: { role: 'ADMIN' },
-        component: HomeComponent,
-      },
-      {
-        path: 'clients',
-        data: { role: 'USER' },
-        component: ClientsComponent,
-      },
-      {
-        path: 'clients/:id',
-        data: { role: 'USER' },
-        component: ClientComponent,
-      },
       {
         path: 'products',
         data: { role: 'USER' },
@@ -62,11 +43,6 @@ const routes: Routes = [
         component: GaleryComponent,
       },
       {
-        path: 'configs',
-        data: { role: 'ADMIN' },
-        component: ConfigsComponent,
-      },
-      {
         path: 'coupons',
         data: { role: 'USER' },
         component: CouponsComponent,
@@ -76,8 +52,13 @@ const routes: Routes = [
         data: { role: 'USER' },
         component: CouponComponent,
       },
-      { path: '**', redirectTo: 'clients', pathMatch: 'full' },
+      { path: '**', redirectTo: 'products', pathMatch: 'full' },
     ],
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('../private/private.module').then((m) => m.PrivateModule),
   },
 ];
 
