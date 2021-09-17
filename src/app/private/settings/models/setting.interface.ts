@@ -1,9 +1,10 @@
 export interface categItf {
-  category: string;
+  collection: string;
+  name: string;
   icon: string;
 }
 
-export interface ConfigItf {
+export interface SettingItf {
   id: string;
   title: string;
   categories: categItf[];

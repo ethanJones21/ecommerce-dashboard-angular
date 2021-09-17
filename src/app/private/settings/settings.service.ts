@@ -1,31 +1,34 @@
 import { Injectable } from '@angular/core';
 import {
-  getConfigItf,
-  createUpdateConfigItf,
-} from './models/config-api.interface';
+  getSettingItf,
+  createUpdateSettingItf,
+} from './models/setting-api.interface';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ConfigItf } from './models/config.interface';
+import { SettingItf } from './models/setting.interface';
 import { HttpClient } from '@angular/common/http';
 const apiUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
 })
-export class ConfigsService {
+export class SettingsService {
   constructor(private http: HttpClient) {}
 
-  getConfig(): Observable<ConfigItf> {
+  getSetting(): Observable<SettingItf> {
     return this.http
-      .get<getConfigItf>(`${apiUrl}/admins/configs`)
-      .pipe(map(({ ok, config }) => config));
+      .get<getSettingItf>(`${apiUrl}/admins/settings`)
+      .pipe(map(({ ok, setting }) => setting));
   }
 
-  updateConfig(data: any, file: File): Observable<createUpdateConfigItf> {
+  updateSetting(data: any, file: File): Observable<createUpdateSettingItf> {
     const fd = new FormData();
     this.destructureData(data, file, fd);
-    return this.http.put<createUpdateConfigItf>(`${apiUrl}/admins/configs`, fd);
+    return this.http.put<createUpdateSettingItf>(
+      `${apiUrl}/admins/settings`,
+      fd
+    );
   }
 
   getImg(logo: string) {
@@ -34,7 +37,6 @@ export class ConfigsService {
 
   private destructureData(data: any, file: File, fd: FormData) {
     const { title, categories, serie, correlative } = data;
-    console.log(categories);
     if (title) fd.append('title', title);
     for (const c of categories) {
       fd.append('categories', JSON.stringify(c));

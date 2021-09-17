@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
-import { categItf } from './config.interface';
-export class ConfigClass {
+import { categItf } from './setting.interface';
+export class SettingClass {
   title: string;
   categories: categItf[];
   logo: string;
@@ -9,11 +9,11 @@ export class ConfigClass {
 
   constructor(form: FormGroup) {
     const {
-      titleConfig: title,
-      categoriesConfig: categories,
-      logoConfig: logo,
-      serieConfig: serie,
-      correlativeConfig: correlative,
+      titleSetting: title,
+      categoriesSetting: categories,
+      logoSetting: logo,
+      serieSetting: serie,
+      correlativeSetting: correlative,
     } = form.value;
     this.title = title;
     this.categories = categories;

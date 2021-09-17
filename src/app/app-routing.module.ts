@@ -5,7 +5,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
@@ -13,6 +13,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./public/public.module').then((m) => m.PublicModule),
     canLoad: [AuthGuard],
+  },
+  {
+    path: '',
+    redirectTo: 'panel',
+    pathMatch: 'full',
   },
   {
     path: '404',

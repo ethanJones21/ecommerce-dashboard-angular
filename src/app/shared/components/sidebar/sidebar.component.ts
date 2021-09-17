@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SidebarService } from './sidebar.service';
 
 @Component({
   selector: 'Sidebar',
@@ -6,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  constructor() {}
+  sidebar$!: Observable<any[]>;
+  constructor(private sidebarServ: SidebarService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sidebar$ = this.sidebarServ.getSidebar();
+  }
 }

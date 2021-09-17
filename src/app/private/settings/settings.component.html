@@ -1,4 +1,4 @@
-<form [formGroup]="configForm" (ngSubmit)="submitForm(configForm)" novalidate>
+<form [formGroup]="settingForm" (ngSubmit)="submitForm(settingForm)" novalidate>
   <!-- Page title-->
   <div class="border-bottom pt-5 mt-2 mb-5">
     <h1 class="mt-2 mt-md-4 mb-3 pt-5">Configuraciones</h1>
@@ -27,8 +27,8 @@
               class="form-control"
               type="text"
               id="text-input"
-              formControlName="titleConfig"
-              name="titleConfig"
+              formControlName="titleSetting"
+              name="titleSetting"
             />
           </div>
         </div>
@@ -43,8 +43,8 @@
               class="form-control"
               type="number"
               id="text-input"
-              formControlName="serieConfig"
-              name="serieConfig"
+              formControlName="serieSetting"
+              name="serieSetting"
             />
           </div>
           <div class="col-md-5">
@@ -52,8 +52,8 @@
               class="form-control"
               type="number"
               id="text-input"
-              formControlName="correlativeConfig"
-              name="correlativeConfig"
+              formControlName="correlativeSetting"
+              name="correlativeSetting"
             />
           </div>
         </div>
@@ -70,14 +70,15 @@
               <table class="table table-sm">
                 <thead class="thead-dark">
                   <tr>
-                    <th class="text-center">Categoria</th>
+                    <th class="text-center">Coleccion</th>
+                    <th class="text-center">Nombre</th>
                     <th class="text-center">Icono</th>
                     <th class="text-center">
                       <i class="fas fa-trash-alt"></i>
                     </th>
                   </tr>
                 </thead>
-                <tbody formArrayName="categoriesConfig">
+                <tbody formArrayName="categoriesSetting">
                   <tr
                     *ngFor="
                       let control of valueCC.categories.controls;
@@ -90,9 +91,19 @@
                           class="form-control"
                           type="text"
                           id="text-input"
-                          placeholder="Titulo"
-                          formControlName="category"
-                          name="category"
+                          placeholder="Coleccion"
+                          formControlName="categoryName"
+                          name="categoryName"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          class="form-control"
+                          type="text"
+                          id="text-input"
+                          placeholder="Nombre"
+                          formControlName="categoryCollection"
+                          name="categoryCollection"
                         />
                       </td>
                       <td>
@@ -116,7 +127,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                       <button
                         class="btn btn-block btn-primary"
                         (click)="addCategory()"

@@ -11,15 +11,19 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 @NgModule({
   declarations: [
     LoadingComponent,
-    SkeletonTableLoadComponent,
+    // SkeletonTableLoadComponent,
     PaginationComponent,
     NavbarComponent,
     SidebarComponent,
   ],
-  imports: [CommonModule, RouterModule, NgxSkeletonLoaderModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    // NgxSkeletonLoaderModule
+  ],
   exports: [
     LoadingComponent,
-    SkeletonTableLoadComponent,
+    // SkeletonTableLoadComponent,
     PaginationComponent,
     NavbarComponent,
     SidebarComponent,

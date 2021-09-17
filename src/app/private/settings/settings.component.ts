@@ -8,33 +8,33 @@ import {
   DoCheck,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { formValueControlsConfig } from './helpers/form-value-controls-config.class';
-import { formValidControlsConfig } from './helpers/form-valid-controls-config.class';
-import { formErrorsControlsConfig } from './helpers/form-errors-controls-config.class';
-import { ConfigClass } from './models/config.class';
+import { formValueControlsSetting } from './helpers/form-value-controls-setting.class';
+import { formValidControlsSetting } from './helpers/form-valid-controls-setting.class';
+import { formErrorsControlsSetting } from './helpers/form-errors-controls-setting.class';
+import { SettingClass } from './models/setting.class';
 import { FormConditions } from '../../shared/helpers/form-conditions.class';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ConfigService } from './config.service';
-import { ConfigsService } from './configs.service';
+import { SettingService } from './setting.service';
+import { SettingsService } from './settings.service';
 import { ImgConditions } from '../../shared/helpers/img-conditions.class';
 import { IMGTYPES } from '../../shared/models/img-types.model';
 
 @Component({
-  selector: 'app-configs',
-  templateUrl: './configs.component.html',
-  styleUrls: ['./configs.component.scss'],
+  selector: 'Settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss'],
 })
-export class ConfigsComponent implements OnInit, OnDestroy, DoCheck {
+export class SettingsComponent implements OnInit, OnDestroy, DoCheck {
   @ViewChild('dropIconConfig') dropIconConfig!: ElementRef;
 
   fc = new FormConditions(this.router);
   id = '';
   subs = new Subscription();
-  configForm!: FormGroup;
-  valueCC!: formValueControlsConfig;
-  validCC!: formValidControlsConfig;
-  errorsCC!: formErrorsControlsConfig;
+  settingForm!: FormGroup;
+  valueCC!: formValueControlsSetting;
+  validCC!: formValidControlsSetting;
+  errorsCC!: formErrorsControlsSetting;
 
   imgTypes = IMGTYPES;
   file!: File;
@@ -45,14 +45,14 @@ export class ConfigsComponent implements OnInit, OnDestroy, DoCheck {
     private render: Renderer2,
     private fb: FormBuilder,
     private router: Router,
-    private configServ: ConfigService,
-    private configsServ: ConfigsService
+    private settingServ: SettingService,
+    private settingsServ: SettingsService
   ) {
     this.initForm();
   }
 
   ngOnInit(): void {
-    this.initConfig();
+    this.initSetting();
   }
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -63,22 +63,26 @@ export class ConfigsComponent implements OnInit, OnDestroy, DoCheck {
       this.render.appendChild(this.dropIconConfig.nativeElement, this.imgEl);
   }
 
-  initConfig() {
+  initSetting() {
     this.subs.add(
-      this.configsServ
-        .getConfig()
+      this.settingsServ
+        .getSetting()
         .subscribe(({ title, logo, categories, serie, correlative }) => {
-          this.configForm.setValue({
-            titleConfig: title,
-            categoriesConfig: [],
-            serieConfig: serie,
-            correlativeConfig: correlative,
+          this.settingForm.setValue({
+            titleSetting: title,
+            categoriesSetting: [],
+            serieSetting: serie,
+            correlativeSetting: correlative,
           });
-          this.imgSelect = this.configsServ.getImg(logo);
+          this.imgSelect = this.settingsServ.getImg(logo);
           categories.forEach((categoryObj) => {
             this.valueCC.categories.push(
               this.fb.group({
-                category: [categoryObj.category, Validators.required],
+                categoryCollection: [
+                  categoryObj.collection,
+                  Validators.required,
+                ],
+                categoryName: [categoryObj.name, Validators.required],
                 icon: [categoryObj.icon, Validators.required],
               })
             );
@@ -88,19 +92,19 @@ export class ConfigsComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   initForm() {
-    this.configForm = this.fb.group({
-      titleConfig: ['', Validators.required],
-      categoriesConfig: this.fb.array([]),
-      serieConfig: ['001', Validators.required],
-      correlativeConfig: ['001', Validators.required],
+    this.settingForm = this.fb.group({
+      titleSetting: ['', Validators.required],
+      categoriesSetting: this.fb.array([]),
+      serieSetting: ['001', Validators.required],
+      correlativeSetting: ['001', Validators.required],
     });
     this.initControls();
   }
 
   private initControls() {
-    this.valueCC = new formValueControlsConfig(this.configForm);
-    this.validCC = new formValidControlsConfig(this.configForm);
-    this.errorsCC = new formErrorsControlsConfig(this.configForm);
+    this.valueCC = new formValueControlsSetting(this.settingForm);
+    this.validCC = new formValidControlsSetting(this.settingForm);
+    this.errorsCC = new formErrorsControlsSetting(this.settingForm);
   }
 
   submitForm(form: FormGroup) {
@@ -109,19 +113,19 @@ export class ConfigsComponent implements OnInit, OnDestroy, DoCheck {
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach((control) => {
             control.markAsTouched();
-            this.configServ.reset(form);
+            this.settingServ.reset(form);
           });
         } else {
           control.markAsTouched();
-          this.configServ.reset(form);
+          this.settingServ.reset(form);
         }
       });
     } else {
-      const config = new ConfigClass(form);
-      this.configsServ
-        .updateConfig(config, this.file)
-        .subscribe(({ ok, msg, config }) =>
-          this.fc.submitSuccessNoRedirect(ok, msg, config)
+      const setting = new SettingClass(form);
+      this.settingsServ
+        .updateSetting(setting, this.file)
+        .subscribe(({ ok, msg, setting }) =>
+          this.fc.submitSuccessNoRedirect(ok, msg, setting)
         );
     }
   }
@@ -129,7 +133,8 @@ export class ConfigsComponent implements OnInit, OnDestroy, DoCheck {
   addCategory() {
     this.valueCC.categories.push(
       this.fb.group({
-        category: ['', Validators.required],
+        categoryCollection: ['', Validators.required],
+        categoryName: ['', Validators.required],
         icon: ['', Validators.required],
       })
     );

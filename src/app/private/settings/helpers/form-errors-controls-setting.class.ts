@@ -1,23 +1,23 @@
 import { FormGroup } from '@angular/forms';
-export class formErrorsControlsConfig {
+export class formErrorsControlsSetting {
   constructor(private form: FormGroup) {}
 
-  get titleConfig() {
-    const title = this.form.get('titleConfig')?.errors || {};
+  get titleSetting() {
+    const title = this.form.get('titleSetting')?.errors || {};
     return this.setErrorCondition(title, 'titulo');
   }
 
-  get categoriesConfig() {
-    const categories = this.form.get('categoriesConfig')?.errors || {};
+  get categoriesSetting() {
+    const categories = this.form.get('categoriesSetting')?.errors || {};
     return this.setErrorCondition(categories, 'categorias');
   }
 
-  get serieConfig() {
-    const serie = this.form.get('serieConfig')?.errors || {};
+  get serieSetting() {
+    const serie = this.form.get('serieSetting')?.errors || {};
     return this.setErrorCondition(serie, 'serie');
   }
-  get correlativeConfig() {
-    const correlative = this.form.get('correlativeConfig')?.errors || {};
+  get correlativeSetting() {
+    const correlative = this.form.get('correlativeSetting')?.errors || {};
     return this.setErrorCondition(correlative, 'correlativo');
   }
 

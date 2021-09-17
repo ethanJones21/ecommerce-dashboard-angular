@@ -14,7 +14,6 @@ import { AuthInterceptorService } from './auth/interceptors/auth.interceptor.ser
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-
     // TODO: ESTO NO LO SE USAR
     // JwtModule.forRoot({
     //   config: {

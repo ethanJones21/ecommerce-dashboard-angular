@@ -10,6 +10,9 @@ import { CouponsComponent } from './coupons/coupons.component';
 import { CouponComponent } from './coupons/coupon/coupon.component';
 import { VarietiesComponent } from './products/varieties/varieties.component';
 import { GaleryComponent } from './products/galery/galery.component';
+import { MessagesComponent } from './messages/messages.component';
+import { NopagefoundComponent } from '../nopagefound/nopagefound.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,11 @@ const routes: Routes = [
         path: 'products',
         data: { role: 'USER' },
         component: ProductsComponent,
+      },
+      {
+        path: 'messages',
+        data: { role: 'USER' },
+        component: MessagesComponent,
       },
       {
         path: 'products/:id',
@@ -52,13 +60,27 @@ const routes: Routes = [
         data: { role: 'USER' },
         component: CouponComponent,
       },
-      { path: '**', redirectTo: 'products', pathMatch: 'full' },
+      {
+        path: 'orders',
+        data: { role: 'USER' },
+        component: OrdersComponent,
+      },
+      { path: '', redirectTo: 'products', pathMatch: 'full' },
     ],
   },
   {
-    path: 'admin',
+    path: 'admins',
     loadChildren: () =>
       import('../private/private.module').then((m) => m.PrivateModule),
+  },
+  {
+    path: '404',
+    component: NopagefoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404',
+    pathMatch: 'full',
   },
 ];
 

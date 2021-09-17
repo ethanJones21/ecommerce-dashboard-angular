@@ -14,6 +14,8 @@ import { CouponsComponent } from './coupons/coupons.component';
 import { CouponComponent } from './coupons/coupon/coupon.component';
 import { GaleryComponent } from './products/galery/galery.component';
 import { VarietiesComponent } from './products/varieties/varieties.component';
+import { MessagesComponent } from './messages/messages.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { VarietiesComponent } from './products/varieties/varieties.component';
     CouponComponent,
     GaleryComponent,
     VarietiesComponent,
+    MessagesComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +48,8 @@ import { VarietiesComponent } from './products/varieties/varieties.component';
     CouponsComponent,
     CouponComponent,
     VarietiesComponent,
+    MessagesComponent,
+    OrdersComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
