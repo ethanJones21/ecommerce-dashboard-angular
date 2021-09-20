@@ -1,1 +1,90 @@
-<p>messages works!</p>
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Mensajes</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo lista todos los mensajes de la tienda.</p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm" style="min-height: 30rem">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5>Filtro de mensajes</h5>
+    </div>
+    <div class="form-floating pt-2">
+      <label class="sr-only" for="inline-form-input-name">Nº venta</label>
+      <input
+        name="termSearchMessage"
+        class="form-control mb-3 mr-sm-4"
+        type="text"
+        id="inline-form-input-name"
+        placeholder="Buscar por asunto o estado"
+        #termSearchMessage
+        (keyup.enter)="search(termSearchMessage.value)"
+      />
+    </div>
+  </div>
+  <ng-container *ngIf="messages$ | async; let messages; else: loading">
+    <div class="card-body fadein">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Cliente</th>
+              <th>Correo</th>
+              <th>Asunto</th>
+              <th>Mensaje</th>
+              <th>Estado</th>
+              <th>Creado en</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let message of messages; index as i">
+              <tr>
+                <th scope="row">check</th>
+                <td>{{ message.client.name }} {{ message.client.lastname }}</td>
+                <td>{{ message.email }}</td>
+                <td>{{ message.subject }}</td>
+                <td>{{ message.message }}</td>
+                <td>{{ message.state }}</td>
+                <td>{{ message.createdAt | date }}</td>
+                <td>
+                  <div class="btn-group dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Opciones
+                    </button>
+                    <div class="dropdown-menu">
+                      <a
+                        [routerLink]="['/panel/messages/', message.id]"
+                        class="dropdown-item pointer"
+                        >Ver detalles</a
+                      >
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <tr class="text-center" *ngIf="messages.length == 0">
+              <td colspan="7">No hay resultados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <Pagination
+    [pagination]="pagination"
+    (pageEmitter)="getMessages('', $event)"
+  ></Pagination>
+</div>
+
+<ng-template #loading>
+  <Skeleton-table-load (limit)="(limit)"></Skeleton-table-load>
+</ng-template>

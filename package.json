@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.1.0",
+    "@angular/cdk": "^12.2.6",
     "@angular/common": "~12.1.0",
     "@angular/compiler": "~12.1.0",
     "@angular/core": "~12.1.0",
@@ -20,6 +21,9 @@
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",
     "@auth0/angular-jwt": "^5.0.2",
+    "@swimlane/ngx-charts": "^19.0.1",
+    "chartjs-plugin-annotation": "^1.0.2",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "nanoid": "^3.1.25",

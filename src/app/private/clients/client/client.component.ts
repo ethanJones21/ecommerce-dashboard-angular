@@ -24,7 +24,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   validCC!: formValidControlsClient;
   errorsCC!: formErrorsControlsClient;
 
-  routeInit = '/panel/clients';
+  routeInit = '/panel/admins/clients';
   fc = new FormConditions(this.router);
 
   subs = new Subscription();

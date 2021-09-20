@@ -13,7 +13,6 @@ import { PrivateComponent } from './private.components';
 import { SharedModule } from '../shared/shared.module';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
-
 @NgModule({
   declarations: [
     ClientsComponent,

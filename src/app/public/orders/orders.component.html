@@ -1,1 +1,97 @@
-<p>orders works!</p>
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Pedidos</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo lista todos los pedidos de la tienda.</p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm" style="min-height: 30rem">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5>Filtro de pedidos</h5>
+      <button class="btn btn-success" type="button" (click)="exportToExcel()">
+        Exportar a excel
+      </button>
+    </div>
+    <div class="form-floating pt-2">
+      <label class="sr-only" for="inline-form-input-name">Nº venta</label>
+      <input
+        name="searchForNameProducts"
+        class="form-control mb-3 mr-sm-4"
+        type="text"
+        id="inline-form-input-name"
+        placeholder="Buscar por numero de venta"
+        #termSearchProducts
+        (keyup.enter)="search(termSearchProducts.value)"
+      />
+    </div>
+  </div>
+  <ng-container *ngIf="orders$ | async; let orders; else: loading">
+    <div class="card-body fadein">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>N° Venta</th>
+              <th>Creado en</th>
+              <th>Cliente</th>
+              <th>Total</th>
+              <th>Delivery</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let order of orders; index as i">
+              <tr>
+                <th scope="row">check</th>
+                <td>{{ order.nsale }}</td>
+                <td>{{ order.createdAt | date }}</td>
+                <td>{{ order.client.name }} {{ order.client.lastname }}</td>
+                <td>{{ order.total }}</td>
+                <td>{{ order.delivery }}</td>
+                <td>{{ order.state }}</td>
+                <td>
+                  <div class="btn-group dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Opciones
+                    </button>
+                    <div class="dropdown-menu">
+                      <a
+                        [routerLink]="['/panel/orders/', order.id]"
+                        class="dropdown-item pointer"
+                        >Ver detalles</a
+                      >
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <tr class="text-center" *ngIf="orders.length == 0">
+              <td colspan="7">No hay resultados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <Pagination
+    [pagination]="pagination"
+    (pageEmitter)="getOrders('', $event)"
+  ></Pagination>
+</div>
+
+<ng-template #loading>
+  <Skeleton-table-load (limit)="(limit)"></Skeleton-table-load>
+</ng-template>
+
+<!-- [class.disabled]="order.active" -->
+
+<!-- <div class="dropdown-divider"></div> -->

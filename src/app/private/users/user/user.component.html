@@ -1,1 +1,201 @@
-<p>user works!</p>
+<form [formGroup]="userForm" (ngSubmit)="submitForm(userForm)" novalidate>
+  <!-- Page title-->
+  <div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Usuarios</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Formulario para crear un nuevo usuario</p>
+      <p class="font-size-sm font-weight-medium pl-md-4">
+        <a
+          class="text-nowrap"
+          href="javascript:window.history.back()"
+          rel="noopener"
+          ><i class="cxi-angle-left font-size-base align-middle ml-1"></i>Ir
+          atrás</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <!-- Nombre -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.nameUser"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.nameUser }}</label
+    >
+    <label *ngIf="!validCC.nameUser" for="text-input" class="form-label"
+      >Nombre</label
+    >
+    <input
+      formControlName="nameUser"
+      name="nameUser"
+      class="form-control"
+      type="text"
+      placeholder="Nombre del usuario"
+    />
+  </div>
+
+  <!-- Apellido -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.lastnameUser"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.lastnameUser }}</label
+    >
+    <label *ngIf="!validCC.lastnameUser" for="text-input" class="form-label"
+      >Apellido</label
+    >
+    <input
+      formControlName="lastnameUser"
+      name="lastnameUser"
+      class="form-control"
+      type="text"
+      placeholder="Apellido del usuario"
+    />
+  </div>
+
+  <!-- Email -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.emailUser"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.emailUser }}</label
+    >
+    <label *ngIf="!validCC.emailUser" for="text-input" class="form-label"
+      >Correo</label
+    >
+    <input
+      formControlName="emailUser"
+      name="emailUser"
+      class="form-control"
+      placeholder="Correo del usuario"
+      type="email"
+    />
+  </div>
+
+  <!-- Contraseña -->
+  <!-- Password visibility toggle -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.passUser"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.passUser }}</label
+    >
+    <label *ngIf="!validCC.passUser" for="text-input" class="form-label"
+      >Contraseña</label
+    >
+    <input
+      [attr.disabled]="id != 'new'"
+      formControlName="passUser"
+      name="passUser"
+      class="form-control"
+      type="text"
+    />
+  </div>
+  <!-- value="hidden@password" -->
+
+  <!-- Pais -->
+  <div class="mb-4 d-flex flex-column">
+    <label for="select-input" class="form-label">País </label>
+    <select
+      formControlName="countryUser"
+      name="countryUser"
+      class="custom-select custom-select-lg"
+    >
+      <option disabled>Escoge un país...</option>
+      <option>Peru</option>
+      <option>Colombia</option>
+      <option>Argentina</option>
+    </select>
+  </div>
+
+  <!-- Gender -->
+
+  <div class="mb-4">
+    <label for="select-input" class="form-label">Genero </label>
+    <div class="form-check form-check-inline">
+      <input
+        formControlName="genderUser"
+        class="form-check-input"
+        type="radio"
+        id="ex-radio-4"
+        name="genderUser"
+        value="M"
+      />
+      <!-- checked -->
+      <label class="form-check-label" for="ex-radio-4">M</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        formControlName="genderUser"
+        class="form-check-input"
+        type="radio"
+        id="ex-radio-5"
+        name="genderUser"
+        value="F"
+      />
+      <label class="form-check-label" for="ex-radio-5">F</label>
+    </div>
+  </div>
+
+  <!-- Phone Input -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.phoneUser"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.phoneUser }}</label
+    >
+    <label *ngIf="!validCC.phoneUser" for="text-input" class="form-label"
+      >Telefono</label
+    >
+    <input
+      formControlName="phoneUser"
+      name="phoneUser"
+      class="form-control"
+      placeholder="Telefono del usuario"
+      type="text"
+    />
+  </div>
+
+  <!-- Role Input -->
+  <div class="mb-4">
+    <label
+      *ngIf="validCC.roleUser"
+      for="text-input"
+      class="form-label text-danger"
+      >{{ errorsCC.roleUser }}</label
+    >
+    <label *ngIf="!validCC.roleUser" for="text-input" class="form-label"
+      >Role</label
+    >
+    <input
+      formControlName="roleUser"
+      name="roleUser"
+      class="form-control"
+      placeholder="Role del usuario"
+      type="text"
+    />
+  </div>
+
+  <button
+    class="btn btn-primary"
+    [disabled]="!userForm.valid"
+    *ngIf="!isUpdate"
+    type="submit"
+  >
+    Guardar
+  </button>
+  <button
+    class="btn btn-warning"
+    *ngIf="isUpdate"
+    [disabled]="!userForm.valid"
+    type="submit"
+  >
+    Actualizar
+  </button>
+</form>

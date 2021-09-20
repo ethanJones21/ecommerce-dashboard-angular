@@ -1,1 +1,105 @@
-<p>users works!</p>
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Usuarios</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo lista todos los usuarios</p>
+    <p class="font-size-sm font-weight-medium pl-md-4">
+      <a
+        class="text-nowrap"
+        [routerLink]="['/panel/admins/users/new']"
+        routerLinkActive="router-link-active"
+        rel="noopener"
+        >Registrar nuevo<i
+          class="cxi-angle-right font-size-base align-middle ml-1"
+        ></i
+      ></a>
+    </p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm" style="min-height: 30rem">
+  <div class="card-header">
+    <h5 style="margin-bottom: 0px">Filtro de clientes</h5>
+  </div>
+  <div class="card-header">
+    <div class="form-floating pt-2">
+      <label class="sr-only" for="inline-form-input-name"
+        >Nombre, Apellido o Correo</label
+      >
+      <input
+        name="searchForNameUsers"
+        class="form-control mb-3 mr-sm-4"
+        type="text"
+        id="inline-form-input-name"
+        placeholder="Buscar por nombre, apellido o correo"
+        #termSearchUsers
+        (keyup.enter)="search(termSearchUsers.value)"
+      />
+    </div>
+  </div>
+  <ng-container *ngIf="users$ | async; let users; else: loading">
+    <div class="card-body fadein">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Correo</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let user of users; index as i">
+              <tr [class.disabled]="!user.active">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                  <div class="btn-group dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Opciones
+                    </button>
+                    <div class="dropdown-menu">
+                      <a
+                        [routerLink]="['/panel/admins/users/', user.uid]"
+                        class="dropdown-item pointer"
+                        >Actualizar usuario</a
+                      >
+                      <a
+                        (click)="deactivateUser(user.uid)"
+                        class="dropdown-item pointer"
+                        >Desactivar usuario</a
+                      >
+                      <!-- <div class="dropdown-divider"></div> -->
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <tr class="text-center" *ngIf="users.length == 0">
+              <td colspan="5">No hay resultados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <Pagination
+    [pagination]="pagination"
+    (pageEmitter)="getUsers('', $event)"
+  ></Pagination>
+</div>
+
+<ng-template #loading>
+  <Skeleton-table-load (limit)="(limit)"></Skeleton-table-load>
+</ng-template>

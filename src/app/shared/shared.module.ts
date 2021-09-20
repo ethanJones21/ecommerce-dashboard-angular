@@ -7,6 +7,10 @@ import { RouterModule } from '@angular/router';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NormalizedHorizontalBarChartComponent } from './components/normalized-horizontal-bar-chart/normalized-horizontal-bar-chart.component';
+import { StackedAreaChartComponent } from './components/stacked-area-chart/stacked-area-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +19,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     PaginationComponent,
     NavbarComponent,
     SidebarComponent,
+    NormalizedHorizontalBarChartComponent,
+    StackedAreaChartComponent,
+    PieChartComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    NgxChartsModule,
     // NgxSkeletonLoaderModule
   ],
   exports: [
@@ -27,6 +35,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     PaginationComponent,
     NavbarComponent,
     SidebarComponent,
+    NormalizedHorizontalBarChartComponent,
+    StackedAreaChartComponent,
+    PieChartComponent,
   ],
 })
 export class SharedModule {}

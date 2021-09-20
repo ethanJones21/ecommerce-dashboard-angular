@@ -1,4 +1,120 @@
-<!-- Page title-->
-<div class="border-bottom pt-5 pb-2 mt-lg-2 mb-5">
-  <h1 class="mt-3 mt-md-4 pt-5">Dev environment setup</h1>
+<div class="row" style="margin-top: 8rem">
+  <div class="col-md-4">
+    <div class="card border-primary">
+      <div class="card--header">
+        <div class="card--icon bg-primary">
+          <i class="fas fa-money-check-alt"></i>
+          <!-- <i class="fas fa-piggy-bank"></i> -->
+        </div>
+        <div class="card--content">
+          <p class="card--title">Total</p>
+          <h3 class="card--mount">S/.{{ total }}</h3>
+        </div>
+      </div>
+      <hr />
+      <div class="card--footer text-muted"><i class="cxi-clock"></i> Ayer</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-warning">
+      <div class="card--header">
+        <div class="card--icon bg-warning">
+          <i class="far fa-calendar-check"></i>
+        </div>
+        <div class="card--content">
+          <p class="card--title">Mes</p>
+          <h3 class="card--mount">S/.{{ totalMonth }}</h3>
+        </div>
+      </div>
+      <hr />
+      <div class="card--footer text-muted">
+        <i class="cxi-clock"></i> Hace 2 dias
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-success">
+      <div class="card--header">
+        <div class="card--icon bg-success">
+          <i class="fas fa-undo-alt"></i>
+        </div>
+        <div class="card--content">
+          <p class="card--title">Mes anterior</p>
+          <h3 class="card--mount">S/.{{ totalPrevMonth }}</h3>
+        </div>
+      </div>
+      <hr />
+      <div class="card--footer text-muted">
+        <i class="cxi-clock"></i> Hace 1 mes
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-8 d-flex flex-column">
+    <div
+      class="badge bg-danger text-white font-size-lg py-3 px-4 mb-5 text-center"
+    >
+      <!-- style="width: 15.8rem" -->
+
+      Ventas por mes
+    </div>
+    <Stacked-area-chart></Stacked-area-chart>
+  </div>
+  <div class="col-4 d-flex flex-column">
+    <div
+      class="badge bg-dark text-white font-size-lg py-3 px-4 mb-5 text-center"
+    >
+      Cupones mas usados
+    </div>
+    <div>
+      <ul class="list-group">
+        <li class="list-group-item">Lapiz</li>
+        <li class="list-group-item">Plumon</li>
+        <li class="list-group-item">Tijera</li>
+        <li class="list-group-item">
+          Papel duplex 2 por 3 cuadros rewrewrewre
+        </li>
+        <li class="list-group-item">Corrector</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-4 d-flex flex-column">
+    <div
+      class="badge bg-info text-white font-size-lg py-3 px-4 mb-5 text-center"
+    >
+      Productos mas vendidos
+    </div>
+    <div>
+      <ul class="list-group">
+        <li class="list-group-item">Lapiz</li>
+        <li class="list-group-item">Plumon</li>
+        <li class="list-group-item">Tijera</li>
+        <li class="list-group-item">
+          Papel duplex 2 por 3 cuadros rewrewrewre
+        </li>
+        <li class="list-group-item">Corrector</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-8 d-flex flex-column">
+    <div
+      class="
+        badge
+        bg-gradient
+        text-white
+        font-size-lg
+        py-3
+        px-4
+        mb-5
+        text-center
+      "
+    >
+      Categorias mas vendidas
+    </div>
+    <Pie-chart></Pie-chart>
+  </div>
 </div>
